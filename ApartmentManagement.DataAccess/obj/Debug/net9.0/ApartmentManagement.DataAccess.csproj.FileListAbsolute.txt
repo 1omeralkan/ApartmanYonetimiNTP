@@ -1,0 +1,4 @@
+C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.DataAccess\obj\Debug\net9.0\ApartmentManagement.DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.DataAccess\obj\Debug\net9.0\ApartmentManagement.DataAccess.AssemblyInfoInputs.cache
+C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.DataAccess\obj\Debug\net9.0\ApartmentManagement.DataAccess.AssemblyInfo.cs
+C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.DataAccess\obj\Debug\net9.0\ApartmentManagement.DataAccess.csproj.CoreCompileInputs.cache

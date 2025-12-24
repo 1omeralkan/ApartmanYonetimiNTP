@@ -1,0 +1,15 @@
+C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.Business\bin\Debug\net8.0\ApartmentManagement.Business.deps.json
+C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.Business\bin\Debug\net8.0\ApartmentManagement.Business.dll
+C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.Business\bin\Debug\net8.0\ApartmentManagement.Business.pdb
+C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.Business\bin\Debug\net8.0\ApartmentManagement.DataAccess.dll
+C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.Business\bin\Debug\net8.0\ApartmentManagement.DataAccess.pdb
+C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.Business\obj\Debug\net8.0\ApartmentManagement.Business.csproj.AssemblyReference.cache
+C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.Business\obj\Debug\net8.0\ApartmentManagement.Business.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.Business\obj\Debug\net8.0\ApartmentManagement.Business.AssemblyInfoInputs.cache
+C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.Business\obj\Debug\net8.0\ApartmentManagement.Business.AssemblyInfo.cs
+C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.Business\obj\Debug\net8.0\ApartmentManagement.Business.csproj.CoreCompileInputs.cache
+C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.Business\obj\Debug\net8.0\Apartmen.C67A6309.Up2Date
+C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.Business\obj\Debug\net8.0\ApartmentManagement.Business.dll
+C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.Business\obj\Debug\net8.0\refint\ApartmentManagement.Business.dll
+C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.Business\obj\Debug\net8.0\ApartmentManagement.Business.pdb
+C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.Business\obj\Debug\net8.0\ref\ApartmentManagement.Business.dll

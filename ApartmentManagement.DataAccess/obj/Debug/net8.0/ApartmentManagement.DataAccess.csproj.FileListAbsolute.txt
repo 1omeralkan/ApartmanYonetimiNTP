@@ -1,0 +1,14 @@
+C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.DataAccess\bin\Debug\net8.0\ApartmentManagement.DataAccess.deps.json
+C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.DataAccess\bin\Debug\net8.0\ApartmentManagement.DataAccess.runtimeconfig.json
+C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.DataAccess\bin\Debug\net8.0\ApartmentManagement.DataAccess.dll
+C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.DataAccess\bin\Debug\net8.0\ApartmentManagement.DataAccess.pdb
+C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.DataAccess\obj\Debug\net8.0\ApartmentManagement.DataAccess.csproj.AssemblyReference.cache
+C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.DataAccess\obj\Debug\net8.0\ApartmentManagement.DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.DataAccess\obj\Debug\net8.0\ApartmentManagement.DataAccess.AssemblyInfoInputs.cache
+C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.DataAccess\obj\Debug\net8.0\ApartmentManagement.DataAccess.AssemblyInfo.cs
+C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.DataAccess\obj\Debug\net8.0\ApartmentManagement.DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.DataAccess\obj\Debug\net8.0\ApartmentManagement.DataAccess.dll
+C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.DataAccess\obj\Debug\net8.0\refint\ApartmentManagement.DataAccess.dll
+C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.DataAccess\obj\Debug\net8.0\ApartmentManagement.DataAccess.pdb
+C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.DataAccess\obj\Debug\net8.0\ApartmentManagement.DataAccess.genruntimeconfig.cache
+C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.DataAccess\obj\Debug\net8.0\ref\ApartmentManagement.DataAccess.dll
