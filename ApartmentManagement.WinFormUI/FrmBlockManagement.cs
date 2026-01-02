@@ -1,4 +1,7 @@
 #nullable disable
+// FrmBlockManagement.cs
+// Blok Yönetimi Formu - Blok ekleme/düzenleme işlemleri
+// Standart: Tahoma 8.25pt, AutoScroll = true
 using ApartmentManagement.Business.Services;
 using ApartmentManagement.Business.Interfaces;
 using ApartmentManagement.DataAccess.Entities;
@@ -8,6 +11,9 @@ using System.Drawing;
 
 namespace ApartmentManagement.WinFormUI
 {
+    /// <summary>
+    /// Blok yönetimi formu
+    /// </summary>
     public partial class FrmBlockManagement : DevExpress.XtraEditors.XtraForm
     {
         private IBlock _blockService;
@@ -43,7 +49,7 @@ namespace ApartmentManagement.WinFormUI
         {
             this.SuspendLayout();
 
-            // Form Settings
+            // Form Settings - Standart: Max 770x700, AutoScroll = true
             this.Text = _isEditMode ? "Blok Düzenle" : "Yeni Blok";
             this.ClientSize = new Size(700, 320);
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -51,6 +57,8 @@ namespace ApartmentManagement.WinFormUI
             this.MaximizeBox = false;
             this.BackColor = Color.FromArgb(248, 249, 250);
             this.Padding = new Padding(30);
+            this.AutoScroll = true;
+            this.Font = new Font("Tahoma", 8.25F);
 
             int leftColumn = 30;
             int rightColumn = 360;
@@ -62,7 +70,7 @@ namespace ApartmentManagement.WinFormUI
             // Title Label
             this.lblTitle = new LabelControl();
             this.lblTitle.Text = _isEditMode ? "Blok Düzenle" : "Yeni Blok";
-            this.lblTitle.Appearance.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
+            this.lblTitle.Appearance.Font = new Font("Tahoma", 12F, FontStyle.Bold);
             this.lblTitle.Appearance.ForeColor = Color.FromArgb(30, 30, 46);
             this.lblTitle.Location = new Point(30, 25);
             this.Controls.Add(this.lblTitle);
@@ -70,7 +78,7 @@ namespace ApartmentManagement.WinFormUI
             // Back Label
             this.lblBack = new LabelControl();
             this.lblBack.Text = "Geri";
-            this.lblBack.Appearance.Font = new Font("Segoe UI", 11F);
+            this.lblBack.Appearance.Font = new Font("Tahoma", 8.25F);
             this.lblBack.Appearance.ForeColor = Color.FromArgb(100, 100, 100);
             this.lblBack.Cursor = Cursors.Hand;
             this.lblBack.Location = new Point(640, 32);
@@ -82,7 +90,7 @@ namespace ApartmentManagement.WinFormUI
             this.lueSite = new LookUpEdit();
             this.lueSite.Location = new Point(leftColumn, currentY + 22);
             this.lueSite.Size = new Size(fieldWidth, 28);
-            this.lueSite.Properties.Appearance.Font = new Font("Segoe UI", 10F);
+            this.lueSite.Properties.Appearance.Font = new Font("Tahoma", 10F);
             this.lueSite.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { 
                 new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) 
             });
@@ -106,7 +114,7 @@ namespace ApartmentManagement.WinFormUI
             this.cmbStatus.Size = new Size(180, 28);
             this.cmbStatus.Properties.Items.AddRange(new string[] { "Aktif", "Pasif" });
             this.cmbStatus.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.cmbStatus.Properties.Appearance.Font = new Font("Segoe UI", 10F);
+            this.cmbStatus.Properties.Appearance.Font = new Font("Tahoma", 10F);
             this.cmbStatus.EditValue = "Aktif";
             this.Controls.Add(this.cmbStatus);
 
@@ -118,7 +126,7 @@ namespace ApartmentManagement.WinFormUI
             // === INFO LABEL (altta) ===
             this.lblInfo = new LabelControl();
             this.lblInfo.Text = "Not: Seçilen sitedeki ayarlardan toplamlar otomatik hesaplanır.";
-            this.lblInfo.Appearance.Font = new Font("Segoe UI", 8.5F, FontStyle.Italic);
+            this.lblInfo.Appearance.Font = new Font("Tahoma", 8.5F, FontStyle.Italic);
             this.lblInfo.Appearance.ForeColor = Color.FromArgb(140, 140, 140);
             this.lblInfo.Location = new Point(leftColumn, currentY);
             this.Controls.Add(this.lblInfo);
@@ -130,7 +138,7 @@ namespace ApartmentManagement.WinFormUI
             this.btnSave.Text = "Kaydet";
             this.btnSave.Size = new Size(100, 40);
             this.btnSave.Location = new Point(570, currentY);
-            this.btnSave.Appearance.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            this.btnSave.Appearance.Font = new Font("Tahoma", 11F, FontStyle.Bold);
             this.btnSave.Appearance.ForeColor = Color.White;
             this.btnSave.Appearance.BackColor = Color.FromArgb(66, 133, 244);
             this.btnSave.Appearance.Options.UseFont = true;
@@ -148,7 +156,7 @@ namespace ApartmentManagement.WinFormUI
             var label = new LabelControl();
             label.Text = text;
             label.Location = new Point(x, y);
-            label.Appearance.Font = new Font("Segoe UI", 9F);
+            label.Appearance.Font = new Font("Tahoma", 9F);
             label.Appearance.ForeColor = Color.FromArgb(80, 80, 80);
             this.Controls.Add(label);
             return label;
@@ -159,7 +167,7 @@ namespace ApartmentManagement.WinFormUI
             var txt = new TextEdit();
             txt.Location = new Point(x, y);
             txt.Size = new Size(width, 28);
-            txt.Properties.Appearance.Font = new Font("Segoe UI", 10F);
+            txt.Properties.Appearance.Font = new Font("Tahoma", 10F);
             txt.Properties.Appearance.Options.UseFont = true;
             this.Controls.Add(txt);
             return txt;
@@ -173,7 +181,7 @@ namespace ApartmentManagement.WinFormUI
             spin.Properties.MinValue = 0;
             spin.Properties.MaxValue = 100;
             spin.Properties.IsFloatValue = false;
-            spin.Properties.Appearance.Font = new Font("Segoe UI", 10F);
+            spin.Properties.Appearance.Font = new Font("Tahoma", 10F);
             spin.Properties.Appearance.Options.UseFont = true;
             spin.EditValue = 0;
             this.Controls.Add(spin);

@@ -3,6 +3,7 @@ C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.WinFormUI\obj\Debug\net8.0-
 C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.WinFormUI\obj\Debug\net8.0-windows\ApartmentManagement.WinFormUI.AssemblyInfoInputs.cache
 C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.WinFormUI\obj\Debug\net8.0-windows\ApartmentManagement.WinFormUI.AssemblyInfo.cs
 C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.WinFormUI\obj\Debug\net8.0-windows\ApartmentManagement.WinFormUI.csproj.CoreCompileInputs.cache
+C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.WinFormUI\obj\Debug\net8.0-windows\ApartmentManagement.WinFormUI.sourcelink.json
 C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.WinFormUI\bin\Debug\net8.0-windows\ApartmentManagement.WinFormUI.exe
 C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.WinFormUI\bin\Debug\net8.0-windows\ApartmentManagement.WinFormUI.deps.json
 C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.WinFormUI\bin\Debug\net8.0-windows\ApartmentManagement.WinFormUI.runtimeconfig.json
@@ -61,6 +62,7 @@ C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.WinFormUI\bin\Debug\net8.0-
 C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.WinFormUI\bin\Debug\net8.0-windows\System.Composition.TypedParts.dll
 C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.WinFormUI\bin\Debug\net8.0-windows\System.Configuration.ConfigurationManager.dll
 C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.WinFormUI\bin\Debug\net8.0-windows\System.Data.OleDb.dll
+C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.WinFormUI\bin\Debug\net8.0-windows\System.Data.SqlClient.dll
 C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.WinFormUI\bin\Debug\net8.0-windows\System.Diagnostics.EventLog.dll
 C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.WinFormUI\bin\Debug\net8.0-windows\System.Diagnostics.PerformanceCounter.dll
 C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.WinFormUI\bin\Debug\net8.0-windows\System.Drawing.Common.dll
@@ -72,6 +74,7 @@ C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.WinFormUI\bin\Debug\net8.0-
 C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.WinFormUI\bin\Debug\net8.0-windows\System.ServiceModel.Primitives.dll
 C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.WinFormUI\bin\Debug\net8.0-windows\System.ServiceModel.Security.dll
 C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.WinFormUI\bin\Debug\net8.0-windows\System.ServiceModel.dll
+C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.WinFormUI\bin\Debug\net8.0-windows\System.Windows.Forms.DataVisualization.dll
 C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.WinFormUI\bin\Debug\net8.0-windows\cs\Microsoft.CodeAnalysis.resources.dll
 C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.WinFormUI\bin\Debug\net8.0-windows\de\Microsoft.CodeAnalysis.resources.dll
 C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.WinFormUI\bin\Debug\net8.0-windows\es\Microsoft.CodeAnalysis.resources.dll
@@ -150,7 +153,12 @@ C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.WinFormUI\bin\Debug\net8.0-
 C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.WinFormUI\bin\Debug\net8.0-windows\tr\System.ServiceModel.Primitives.resources.dll
 C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.WinFormUI\bin\Debug\net8.0-windows\zh-Hans\System.ServiceModel.Primitives.resources.dll
 C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.WinFormUI\bin\Debug\net8.0-windows\zh-Hant\System.ServiceModel.Primitives.resources.dll
+C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.WinFormUI\bin\Debug\net8.0-windows\runtimes\win-arm64\native\sni.dll
+C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.WinFormUI\bin\Debug\net8.0-windows\runtimes\win-x64\native\sni.dll
+C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.WinFormUI\bin\Debug\net8.0-windows\runtimes\win-x86\native\sni.dll
 C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.WinFormUI\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Data.OleDb.dll
+C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.WinFormUI\bin\Debug\net8.0-windows\runtimes\unix\lib\net8.0\System.Data.SqlClient.dll
+C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.WinFormUI\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Data.SqlClient.dll
 C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.WinFormUI\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Diagnostics.EventLog.dll
 C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.WinFormUI\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Diagnostics.PerformanceCounter.dll
 C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.WinFormUI\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll

@@ -61,17 +61,37 @@ namespace ApartmentManagement.Business.Services
             try
             {
                 var site = _context.Sites.Find(id);
-                if (site != null)
+                if (site == null)
                 {
-                    _context.Sites.Remove(site);
-                    _context.SaveChanges();
-                    return string.Empty;
+                    return "Site bulunamadı.";
                 }
-                return "Site bulunamadı.";
+
+                // Check if site has related blocks
+                var blocks = _context.Blocks.Where(b => b.SiteId == id).ToList();
+                if (blocks.Any())
+                {
+                    return $"Bu siteye bağlı {blocks.Count} adet blok bulunmaktadır. Önce blokları silmeniz gerekmektedir.";
+                }
+
+                _context.Sites.Remove(site);
+                _context.SaveChanges();
+                return string.Empty;
             }
             catch (Exception ex)
             {
                 return ex.Message;
+            }
+        }
+
+        public Site GetById(int id)
+        {
+            try
+            {
+                return _context.Sites.Find(id);
+            }
+            catch
+            {
+                return null;
             }
         }
     }

@@ -1,4 +1,7 @@
 #nullable disable
+// FrmFlatManagement.cs
+// Daire Yönetimi Formu - Daire ekleme/silme işlemleri
+// Standart: Tahoma 8.25pt, AutoScroll = true
 using ApartmentManagement.Business.Services;
 using ApartmentManagement.Business.Interfaces;
 using ApartmentManagement.DataAccess.Entities;
@@ -9,6 +12,9 @@ using System.Windows.Forms;
 
 namespace ApartmentManagement.WinFormUI
 {
+    /// <summary>
+    /// Daire yönetimi formu
+    /// </summary>
     public partial class FrmFlatManagement : DevExpress.XtraEditors.XtraForm
     {
         private LookUpEdit lueSites;
@@ -60,6 +66,8 @@ namespace ApartmentManagement.WinFormUI
             this.txtFloor = new TextEdit();
             this.cmbType = new ComboBoxEdit();
             // this.Root assignment removed, using layoutControl.Root directly
+            if (this.layoutControl.Root == null)
+                this.layoutControl.Root = new LayoutControlGroup();
             
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl)).BeginInit();
             this.layoutControl.SuspendLayout();
@@ -76,7 +84,9 @@ namespace ApartmentManagement.WinFormUI
 
             this.layoutControl.Dock = DockStyle.Fill;
             this.Text = "Daire Yönetimi";
-            this.Size = new Size(1100, 700);
+            this.Size = new Size(770, 700);
+            this.AutoScroll = true;
+            this.Font = new Font("Tahoma", 8.25F);
 
             // Filter Controls
             lueSites.Properties.DisplayMember = "Name"; lueSites.Properties.ValueMember = "Id";

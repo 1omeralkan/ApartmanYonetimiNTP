@@ -1,4 +1,7 @@
 #nullable disable
+// FrmApartmentList.cs
+// Apartman Listesi Formu - Kayıtlı apartmanları listeler
+// Standart: Tahoma 8.25pt, AutoScroll = true
 using ApartmentManagement.Business.Services;
 using ApartmentManagement.Business.Interfaces;
 using ApartmentManagement.DataAccess.Entities;
@@ -10,6 +13,9 @@ using System.Drawing;
 
 namespace ApartmentManagement.WinFormUI
 {
+    /// <summary>
+    /// Apartman listesi formu
+    /// </summary>
     public partial class FrmApartmentList : DevExpress.XtraEditors.XtraForm
     {
         private IApartment _apartmentService;
@@ -42,16 +48,18 @@ namespace ApartmentManagement.WinFormUI
         {
             this.SuspendLayout();
 
-            // Form Settings
+            // Form Settings - Standart: Max 770x700, AutoScroll = true
             this.Text = "Apartman Yönetimi";
-            this.Size = new Size(1200, 700);
+            this.Size = new Size(770, 700);
             this.StartPosition = FormStartPosition.CenterScreen;
             this.BackColor = Color.FromArgb(248, 249, 250);
+            this.AutoScroll = true;
+            this.Font = new Font("Tahoma", 8.25F);
 
             // Title
             this.lblTitle = new LabelControl();
             this.lblTitle.Text = "🏠 Apartmanlar";
-            this.lblTitle.Appearance.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            this.lblTitle.Appearance.Font = new Font("Tahoma", 8.25F, FontStyle.Bold);
             this.lblTitle.Appearance.ForeColor = Color.FromArgb(30, 30, 46);
             this.lblTitle.Location = new Point(20, 15);
             this.Controls.Add(this.lblTitle);
@@ -67,7 +75,7 @@ namespace ApartmentManagement.WinFormUI
             this.btnAdd.Text = "+ Yeni Apartman";
             this.btnAdd.Size = new Size(130, 35);
             this.btnAdd.Location = new Point(0, 0);
-            this.btnAdd.Appearance.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            this.btnAdd.Appearance.Font = new Font("Tahoma", 8.25F, FontStyle.Bold);
             this.btnAdd.Appearance.BackColor = Color.FromArgb(66, 133, 244);
             this.btnAdd.Appearance.ForeColor = Color.White;
             this.btnAdd.Appearance.Options.UseBackColor = true;
@@ -81,7 +89,7 @@ namespace ApartmentManagement.WinFormUI
             this.btnEdit.Text = "Düzenle";
             this.btnEdit.Size = new Size(90, 35);
             this.btnEdit.Location = new Point(140, 0);
-            this.btnEdit.Appearance.Font = new Font("Segoe UI", 10F);
+            this.btnEdit.Appearance.Font = new Font("Tahoma", 8.25F);
             this.btnEdit.Appearance.BackColor = Color.FromArgb(16, 185, 129);
             this.btnEdit.Appearance.ForeColor = Color.White;
             this.btnEdit.Appearance.Options.UseBackColor = true;
@@ -95,7 +103,7 @@ namespace ApartmentManagement.WinFormUI
             this.btnDelete.Text = "Sil";
             this.btnDelete.Size = new Size(70, 35);
             this.btnDelete.Location = new Point(240, 0);
-            this.btnDelete.Appearance.Font = new Font("Segoe UI", 10F);
+            this.btnDelete.Appearance.Font = new Font("Tahoma", 8.25F);
             this.btnDelete.Appearance.BackColor = Color.FromArgb(220, 53, 69);
             this.btnDelete.Appearance.ForeColor = Color.White;
             this.btnDelete.Appearance.Options.UseBackColor = true;
@@ -116,7 +124,7 @@ namespace ApartmentManagement.WinFormUI
             this.cmbSiteFilter.Location = new Point(10, 10);
             this.cmbSiteFilter.Size = new Size(200, 28);
             this.cmbSiteFilter.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.cmbSiteFilter.Properties.Appearance.Font = new Font("Segoe UI", 10F);
+            this.cmbSiteFilter.Properties.Appearance.Font = new Font("Tahoma", 8.25F);
             this.cmbSiteFilter.Properties.NullText = "Tüm Siteler";
             this.cmbSiteFilter.SelectedIndexChanged += CmbSiteFilter_SelectedIndexChanged;
             pnlFilter.Controls.Add(this.cmbSiteFilter);
@@ -126,7 +134,7 @@ namespace ApartmentManagement.WinFormUI
             this.cmbBlockFilter.Location = new Point(220, 10);
             this.cmbBlockFilter.Size = new Size(200, 28);
             this.cmbBlockFilter.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.cmbBlockFilter.Properties.Appearance.Font = new Font("Segoe UI", 10F);
+            this.cmbBlockFilter.Properties.Appearance.Font = new Font("Tahoma", 8.25F);
             this.cmbBlockFilter.Properties.NullText = "Tüm Bloklar";
             pnlFilter.Controls.Add(this.cmbBlockFilter);
 
@@ -135,7 +143,7 @@ namespace ApartmentManagement.WinFormUI
             this.btnFilter.Text = "🔍 Uygula";
             this.btnFilter.Size = new Size(120, 30);
             this.btnFilter.Location = new Point(440, 9);
-            this.btnFilter.Appearance.Font = new Font("Segoe UI", 10F);
+            this.btnFilter.Appearance.Font = new Font("Tahoma", 8.25F);
             this.btnFilter.Appearance.BackColor = Color.FromArgb(66, 133, 244);
             this.btnFilter.Appearance.ForeColor = Color.White;
             this.btnFilter.Appearance.Options.UseBackColor = true;
@@ -148,7 +156,7 @@ namespace ApartmentManagement.WinFormUI
             this.btnClear.Text = "⊗ Temizle";
             this.btnClear.Size = new Size(100, 30);
             this.btnClear.Location = new Point(570, 9);
-            this.btnClear.Appearance.Font = new Font("Segoe UI", 10F);
+            this.btnClear.Appearance.Font = new Font("Tahoma", 8.25F);
             this.btnClear.Click += BtnClear_Click;
             pnlFilter.Controls.Add(this.btnClear);
 
@@ -166,8 +174,8 @@ namespace ApartmentManagement.WinFormUI
             this.gvApartments.OptionsView.ShowIndicator = false;
             this.gvApartments.OptionsSelection.EnableAppearanceFocusedCell = false;
             this.gvApartments.RowHeight = 40;
-            this.gvApartments.Appearance.HeaderPanel.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            this.gvApartments.Appearance.Row.Font = new Font("Segoe UI", 10F);
+            this.gvApartments.Appearance.HeaderPanel.Font = new Font("Tahoma", 8.25F, FontStyle.Bold);
+            this.gvApartments.Appearance.Row.Font = new Font("Tahoma", 8.25F);
             this.gvApartments.DoubleClick += GvApartments_DoubleClick;
             
             this.Controls.Add(this.gcApartments);
@@ -175,7 +183,7 @@ namespace ApartmentManagement.WinFormUI
             // Bottom info label
             var lblInfo = new LabelControl();
             lblInfo.Text = "Kayıtlı apartman listesi. Satıra tıklayarak detay sayfasına gidebilirsiniz.";
-            lblInfo.Appearance.Font = new Font("Segoe UI", 9F);
+            lblInfo.Appearance.Font = new Font("Tahoma", 8.25F);
             lblInfo.Appearance.ForeColor = Color.Gray;
             lblInfo.Location = new Point(20, 655);
             this.Controls.Add(lblInfo);

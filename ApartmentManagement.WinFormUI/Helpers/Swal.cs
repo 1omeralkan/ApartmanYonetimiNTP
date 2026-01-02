@@ -111,7 +111,7 @@ namespace ApartmentManagement.WinFormUI.Helpers
             // Title
             var lblTitle = new LabelControl();
             lblTitle.Text = _title;
-            lblTitle.Appearance.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            lblTitle.Appearance.Font = new Font("Tahoma", 18F, FontStyle.Bold);
             lblTitle.Appearance.ForeColor = Color.FromArgb(50, 50, 50);
             lblTitle.AutoSizeMode = LabelAutoSizeMode.None;
             lblTitle.Size = new Size(340, 35);
@@ -122,7 +122,7 @@ namespace ApartmentManagement.WinFormUI.Helpers
             // Message
             var lblMessage = new LabelControl();
             lblMessage.Text = _message;
-            lblMessage.Appearance.Font = new Font("Segoe UI", 11F);
+            lblMessage.Appearance.Font = new Font("Tahoma", 11F);
             lblMessage.Appearance.ForeColor = Color.FromArgb(120, 120, 120);
             lblMessage.AutoSizeMode = LabelAutoSizeMode.None;
             lblMessage.Size = new Size(340, 50);
@@ -136,7 +136,7 @@ namespace ApartmentManagement.WinFormUI.Helpers
             btnOk.Text = "Tamam";
             btnOk.Size = new Size(120, 45);
             btnOk.Location = new Point((this.Width - 120) / 2, 215);
-            btnOk.Appearance.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            btnOk.Appearance.Font = new Font("Tahoma", 11F, FontStyle.Bold);
             btnOk.Appearance.ForeColor = Color.White;
             btnOk.Appearance.BackColor = GetButtonColor();
             btnOk.Appearance.Options.UseFont = true;
@@ -167,7 +167,7 @@ namespace ApartmentManagement.WinFormUI.Helpers
 
             // Icon
             using (var pen = new Pen(iconColor, 4))
-            using (var font = new Font("Segoe UI", 32F, FontStyle.Bold))
+            using (var font = new Font("Tahoma", 32F, FontStyle.Bold))
             {
                 string icon = GetIconChar();
                 var size = g.MeasureString(icon, font);
@@ -266,7 +266,7 @@ namespace ApartmentManagement.WinFormUI.Helpers
                 var color = Color.FromArgb(220, 53, 69);
                 using (var brush = new SolidBrush(Color.FromArgb(40, color)))
                     e.Graphics.FillEllipse(brush, 0, 0, 78, 78);
-                using (var font = new Font("Segoe UI", 32F, FontStyle.Bold))
+                using (var font = new Font("Tahoma", 32F, FontStyle.Bold))
                 {
                     var size = e.Graphics.MeasureString("?", font);
                     e.Graphics.DrawString("?", font, new SolidBrush(color), 
@@ -278,7 +278,7 @@ namespace ApartmentManagement.WinFormUI.Helpers
             // Title
             var lblTitle = new LabelControl();
             lblTitle.Text = _title;
-            lblTitle.Appearance.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            lblTitle.Appearance.Font = new Font("Tahoma", 18F, FontStyle.Bold);
             lblTitle.Appearance.ForeColor = Color.FromArgb(50, 50, 50);
             lblTitle.AutoSizeMode = LabelAutoSizeMode.None;
             lblTitle.Size = new Size(380, 35);
@@ -289,7 +289,7 @@ namespace ApartmentManagement.WinFormUI.Helpers
             // Message
             var lblMessage = new LabelControl();
             lblMessage.Text = _message;
-            lblMessage.Appearance.Font = new Font("Segoe UI", 11F);
+            lblMessage.Appearance.Font = new Font("Tahoma", 11F);
             lblMessage.Appearance.ForeColor = Color.FromArgb(120, 120, 120);
             lblMessage.AutoSizeMode = LabelAutoSizeMode.None;
             lblMessage.Size = new Size(380, 50);
@@ -309,7 +309,7 @@ namespace ApartmentManagement.WinFormUI.Helpers
             btnCancel.Text = "İptal";
             btnCancel.Size = new Size(130, 45);
             btnCancel.Location = new Point(0, 0);
-            btnCancel.Appearance.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            btnCancel.Appearance.Font = new Font("Tahoma", 11F, FontStyle.Bold);
             btnCancel.Appearance.ForeColor = Color.FromArgb(80, 80, 80);
             btnCancel.Appearance.BackColor = Color.FromArgb(230, 230, 230);
             btnCancel.Appearance.Options.UseFont = true;
@@ -324,7 +324,7 @@ namespace ApartmentManagement.WinFormUI.Helpers
             btnConfirm.Text = "Evet, Sil";
             btnConfirm.Size = new Size(130, 45);
             btnConfirm.Location = new Point(150, 0);
-            btnConfirm.Appearance.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            btnConfirm.Appearance.Font = new Font("Tahoma", 11F, FontStyle.Bold);
             btnConfirm.Appearance.ForeColor = Color.White;
             btnConfirm.Appearance.BackColor = Color.FromArgb(220, 53, 69);
             btnConfirm.Appearance.Options.UseFont = true;

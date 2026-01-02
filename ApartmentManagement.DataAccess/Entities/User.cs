@@ -35,6 +35,9 @@ namespace ApartmentManagement.DataAccess.Entities
         // Roles: SuperAdmin, Admin, SiteManager, ApartmentManager, Resident
         [Required]
         [MaxLength(20)]
-        public string Role { get; set; } 
+        public string Role { get; set; }
+        
+        // Login tracking
+        public DateTime? LastLoginDate { get; set; }
     }
 }

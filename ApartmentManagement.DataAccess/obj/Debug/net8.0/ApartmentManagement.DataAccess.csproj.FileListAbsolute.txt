@@ -7,6 +7,7 @@ C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.DataAccess\obj\Debug\net8.0
 C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.DataAccess\obj\Debug\net8.0\ApartmentManagement.DataAccess.AssemblyInfoInputs.cache
 C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.DataAccess\obj\Debug\net8.0\ApartmentManagement.DataAccess.AssemblyInfo.cs
 C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.DataAccess\obj\Debug\net8.0\ApartmentManagement.DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.DataAccess\obj\Debug\net8.0\ApartmentManagement.DataAccess.sourcelink.json
 C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.DataAccess\obj\Debug\net8.0\ApartmentManagement.DataAccess.dll
 C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.DataAccess\obj\Debug\net8.0\refint\ApartmentManagement.DataAccess.dll
 C:\Users\omera\Desktop\NTP_Proje\ApartmentManagement.DataAccess\obj\Debug\net8.0\ApartmentManagement.DataAccess.pdb

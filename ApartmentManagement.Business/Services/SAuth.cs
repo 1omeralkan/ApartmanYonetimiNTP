@@ -36,13 +36,27 @@ namespace ApartmentManagement.Business.Services
 
                 if (PasswordHelper.VerifyPassword(password, user.PasswordHash))
                 {
+                    // Update last login date
+                    try
+                    {
+                        user.LastLoginDate = DateTime.Now;
+                        _context.Entry(user).Property(x => x.LastLoginDate).IsModified = true;
+                        _context.SaveChanges();
+                    }
+                    catch (Exception ex)
+                    {
+                        // If save fails, still return user (login is successful)
+                        // LastLoginDate update is not critical for login
+                        // Log error if needed: System.Diagnostics.Debug.WriteLine($"LastLoginDate update failed: {ex.Message}");
+                    }
                     return user;
                 }
 
                 return null;
             }
-            catch
+            catch (Exception ex)
             {
+                // Log error if needed: System.Diagnostics.Debug.WriteLine($"Login error: {ex.Message}");
                 return null;
             }
         }

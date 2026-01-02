@@ -1,4 +1,7 @@
 #nullable disable
+// FrmFlatList.cs
+// Daire Listesi Formu - Kayıtlı daireleri listeler
+// Standart: Tahoma 8.25pt, AutoScroll = true
 using ApartmentManagement.Business.Services;
 using ApartmentManagement.Business.Interfaces;
 using ApartmentManagement.DataAccess.Entities;
@@ -52,16 +55,18 @@ namespace ApartmentManagement.WinFormUI
         {
             this.SuspendLayout();
 
-            // Form Settings
+            // Form Settings - Standart: Max 770x700, AutoScroll = true
             this.Text = "Daire Yönetimi";
-            this.Size = new Size(1250, 700);
+            this.Size = new Size(770, 700);
             this.StartPosition = FormStartPosition.CenterScreen;
             this.BackColor = Color.FromArgb(248, 249, 250);
+            this.AutoScroll = true;
+            this.Font = new Font("Tahoma", 8.25F);
 
             // Title
             this.lblTitle = new LabelControl();
             this.lblTitle.Text = "🚪 Daireler";
-            this.lblTitle.Appearance.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            this.lblTitle.Appearance.Font = new Font("Tahoma", 18F, FontStyle.Bold);
             this.lblTitle.Appearance.ForeColor = Color.FromArgb(30, 30, 46);
             this.lblTitle.Location = new Point(20, 15);
             this.Controls.Add(this.lblTitle);
@@ -77,14 +82,14 @@ namespace ApartmentManagement.WinFormUI
             var lblSite = new LabelControl();
             lblSite.Text = "Site";
             lblSite.Location = new Point(10, 5);
-            lblSite.Appearance.Font = new Font("Segoe UI", 8F);
+            lblSite.Appearance.Font = new Font("Tahoma", 8F);
             pnlFilter.Controls.Add(lblSite);
             
             this.cmbSiteFilter = new ComboBoxEdit();
             this.cmbSiteFilter.Location = new Point(10, 22);
             this.cmbSiteFilter.Size = new Size(180, 26);
             this.cmbSiteFilter.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.cmbSiteFilter.Properties.Appearance.Font = new Font("Segoe UI", 9F);
+            this.cmbSiteFilter.Properties.Appearance.Font = new Font("Tahoma", 9F);
             this.cmbSiteFilter.SelectedIndexChanged += CmbSiteFilter_SelectedIndexChanged;
             pnlFilter.Controls.Add(this.cmbSiteFilter);
 
@@ -92,14 +97,14 @@ namespace ApartmentManagement.WinFormUI
             var lblBlock = new LabelControl();
             lblBlock.Text = "Blok";
             lblBlock.Location = new Point(200, 5);
-            lblBlock.Appearance.Font = new Font("Segoe UI", 8F);
+            lblBlock.Appearance.Font = new Font("Tahoma", 8F);
             pnlFilter.Controls.Add(lblBlock);
             
             this.cmbBlockFilter = new ComboBoxEdit();
             this.cmbBlockFilter.Location = new Point(200, 22);
             this.cmbBlockFilter.Size = new Size(150, 26);
             this.cmbBlockFilter.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.cmbBlockFilter.Properties.Appearance.Font = new Font("Segoe UI", 9F);
+            this.cmbBlockFilter.Properties.Appearance.Font = new Font("Tahoma", 9F);
             this.cmbBlockFilter.SelectedIndexChanged += CmbBlockFilter_SelectedIndexChanged;
             pnlFilter.Controls.Add(this.cmbBlockFilter);
 
@@ -107,21 +112,21 @@ namespace ApartmentManagement.WinFormUI
             var lblApartment = new LabelControl();
             lblApartment.Text = "Apartman";
             lblApartment.Location = new Point(360, 5);
-            lblApartment.Appearance.Font = new Font("Segoe UI", 8F);
+            lblApartment.Appearance.Font = new Font("Tahoma", 8F);
             pnlFilter.Controls.Add(lblApartment);
             
             this.cmbApartmentFilter = new ComboBoxEdit();
             this.cmbApartmentFilter.Location = new Point(360, 22);
             this.cmbApartmentFilter.Size = new Size(150, 26);
             this.cmbApartmentFilter.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.cmbApartmentFilter.Properties.Appearance.Font = new Font("Segoe UI", 9F);
+            this.cmbApartmentFilter.Properties.Appearance.Font = new Font("Tahoma", 9F);
             pnlFilter.Controls.Add(this.cmbApartmentFilter);
 
             // Status Filter
             var lblStatus = new LabelControl();
             lblStatus.Text = "Durum";
             lblStatus.Location = new Point(520, 5);
-            lblStatus.Appearance.Font = new Font("Segoe UI", 8F);
+            lblStatus.Appearance.Font = new Font("Tahoma", 8F);
             pnlFilter.Controls.Add(lblStatus);
             
             this.cmbStatusFilter = new ComboBoxEdit();
@@ -129,7 +134,7 @@ namespace ApartmentManagement.WinFormUI
             this.cmbStatusFilter.Size = new Size(100, 26);
             this.cmbStatusFilter.Properties.Items.AddRange(new[] { "Tümü", "Boş", "Dolu" });
             this.cmbStatusFilter.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.cmbStatusFilter.Properties.Appearance.Font = new Font("Segoe UI", 9F);
+            this.cmbStatusFilter.Properties.Appearance.Font = new Font("Tahoma", 9F);
             this.cmbStatusFilter.SelectedIndex = 0;
             pnlFilter.Controls.Add(this.cmbStatusFilter);
 
@@ -138,7 +143,7 @@ namespace ApartmentManagement.WinFormUI
             this.btnFilter.Text = "🔍 Ara";
             this.btnFilter.Size = new Size(100, 30);
             this.btnFilter.Location = new Point(640, 19);
-            this.btnFilter.Appearance.Font = new Font("Segoe UI", 10F);
+            this.btnFilter.Appearance.Font = new Font("Tahoma", 10F);
             this.btnFilter.Appearance.BackColor = Color.FromArgb(66, 133, 244);
             this.btnFilter.Appearance.ForeColor = Color.White;
             this.btnFilter.Appearance.Options.UseBackColor = true;
@@ -151,7 +156,7 @@ namespace ApartmentManagement.WinFormUI
             this.btnClear.Text = "⊗ Temizle";
             this.btnClear.Size = new Size(100, 30);
             this.btnClear.Location = new Point(750, 19);
-            this.btnClear.Appearance.Font = new Font("Segoe UI", 10F);
+            this.btnClear.Appearance.Font = new Font("Tahoma", 10F);
             this.btnClear.Click += BtnClear_Click;
             pnlFilter.Controls.Add(this.btnClear);
 
@@ -190,8 +195,8 @@ namespace ApartmentManagement.WinFormUI
             this.gvFlats.OptionsView.ShowIndicator = false;
             this.gvFlats.OptionsSelection.EnableAppearanceFocusedCell = false;
             this.gvFlats.RowHeight = 38;
-            this.gvFlats.Appearance.HeaderPanel.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            this.gvFlats.Appearance.Row.Font = new Font("Segoe UI", 10F);
+            this.gvFlats.Appearance.HeaderPanel.Font = new Font("Tahoma", 10F, FontStyle.Bold);
+            this.gvFlats.Appearance.Row.Font = new Font("Tahoma", 10F);
             this.gvFlats.DoubleClick += GvFlats_DoubleClick;
 
             this.Controls.Add(this.gcFlats);
@@ -199,7 +204,7 @@ namespace ApartmentManagement.WinFormUI
             // Bottom info label
             var lblInfo = new LabelControl();
             lblInfo.Text = "Kayıtlı daire listesi. Apartman oluşturulduğunda daireler otomatik oluşturulur.";
-            lblInfo.Appearance.Font = new Font("Segoe UI", 9F);
+            lblInfo.Appearance.Font = new Font("Tahoma", 9F);
             lblInfo.Appearance.ForeColor = Color.Gray;
             lblInfo.Location = new Point(20, 658);
             this.Controls.Add(lblInfo);

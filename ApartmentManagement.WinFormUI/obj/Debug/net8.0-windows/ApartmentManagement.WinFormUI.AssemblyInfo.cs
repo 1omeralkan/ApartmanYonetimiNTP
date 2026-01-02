@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ApartmentManagement.WinFormUI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6ced02c1ae14ee2d22b46b6a9da84425376e8b3b")]
 [assembly: System.Reflection.AssemblyProductAttribute("ApartmentManagement.WinFormUI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ApartmentManagement.WinFormUI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
