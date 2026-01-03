@@ -29,6 +29,21 @@ namespace ApartmentManagement.Business.Services
             }
         }
 
+        public List<User> GetPendingApprovals()
+        {
+            try
+            {
+                return _context.Users
+                    .Where(u => !u.IsApproved && u.Role != "SuperAdmin" && u.Role != "Admin")
+                    .OrderByDescending(u => u.CreatedDate)
+                    .ToList();
+            }
+            catch (Exception)
+            {
+                return new List<User>();
+            }
+        }
+
         public User GetById(int id)
         {
             try
@@ -82,6 +97,46 @@ namespace ApartmentManagement.Business.Services
                     return string.Empty; // Success
                 }
                 return "Kullanıcı bulunamadı.";
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+        public string ApproveUser(int userId, int approvedByUserId)
+        {
+            try
+            {
+                var user = _context.Users.Find(userId);
+                if (user == null)
+                    return "Kullanıcı bulunamadı.";
+
+                user.IsApproved = true;
+                user.ApprovedDate = DateTime.UtcNow;
+                user.ApprovedByUserId = approvedByUserId;
+                
+                _context.SaveChanges();
+                return string.Empty; // Success
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+        public string RejectUser(int userId)
+        {
+            try
+            {
+                var user = _context.Users.Find(userId);
+                if (user == null)
+                    return "Kullanıcı bulunamadı.";
+
+                // Reject = Delete the user
+                _context.Users.Remove(user);
+                _context.SaveChanges();
+                return string.Empty; // Success
             }
             catch (Exception ex)
             {

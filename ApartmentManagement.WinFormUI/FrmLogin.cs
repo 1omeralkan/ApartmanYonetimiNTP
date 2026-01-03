@@ -231,7 +231,24 @@ namespace ApartmentManagement.WinFormUI
             }
             else
             {
-                Swal.Error("E-posta veya şifre hatalı!", "Giriş Hatası");
+                // Check if user exists but not approved
+                try
+                {
+                    var userService = new ApartmentManagement.Business.Services.SUser();
+                    var existingUser = userService.GetAll().FirstOrDefault(u => u.Email == email);
+                    if (existingUser != null && !existingUser.IsApproved)
+                    {
+                        Swal.Warning("Hesabınız henüz admin tarafından onaylanmadı. Lütfen onay bekleyin.", "Onay Bekleniyor");
+                    }
+                    else
+                    {
+                        Swal.Error("E-posta veya şifre hatalı!", "Giriş Hatası");
+                    }
+                }
+                catch
+                {
+                    Swal.Error("E-posta veya şifre hatalı!", "Giriş Hatası");
+                }
             }
         }
     }

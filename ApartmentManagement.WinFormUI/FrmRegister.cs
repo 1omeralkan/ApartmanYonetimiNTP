@@ -380,7 +380,7 @@ namespace ApartmentManagement.WinFormUI
                     }
                     else
                     {
-                        Helpers.Swal.Success("Kayıt başarılı! Giriş yapabilirsiniz.");
+                        Helpers.Swal.Success("Kayıt başarılı! Hesabınız admin onayı bekliyor. Onaylandıktan sonra giriş yapabilirsiniz.");
                         this.Hide();
                         new FrmLogin().Show();
                     }

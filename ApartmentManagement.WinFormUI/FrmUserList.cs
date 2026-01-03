@@ -672,26 +672,26 @@ namespace ApartmentManagement.WinFormUI
         {
             try
             {
-                var userId = GetSelectedUserId();
+                        var userId = GetSelectedUserId();
                 if (!userId.HasValue)
                 {
                     Swal.Warning("Lütfen düzenlemek için bir kullanıcı seçin.");
                     return;
                 }
 
-                var user = _userService.GetById(userId.Value);
+                            var user = _userService.GetById(userId.Value);
                 if (user == null)
-                {
+                            {
                     Swal.Warning("Kullanıcı bulunamadı.");
                     return;
                 }
 
-                var frm = new FrmUserManagement(user);
-                if (frm.ShowDialog() == DialogResult.OK)
-                {
-                    LoadData();
-                }
-            }
+                                var frm = new FrmUserManagement(user);
+                                if (frm.ShowDialog() == DialogResult.OK)
+                                {
+                                    LoadData();
+                                }
+                            }
             catch (Exception ex)
             {
                 Swal.Error("Düzenleme işlemi sırasında hata oluştu: " + ex.Message);
@@ -705,34 +705,34 @@ namespace ApartmentManagement.WinFormUI
         {
             try
             {
-                var userId = GetSelectedUserId();
+                        var userId = GetSelectedUserId();
                 if (!userId.HasValue)
-                {
+                        {
                     Swal.Warning("Lütfen silmek için bir kullanıcı seçin.");
                     return;
                 }
 
-                var row = gvUsers.GetFocusedRow();
-                var nameProp = row?.GetType().GetProperty("KullaniciAd");
-                string userName = nameProp?.GetValue(row)?.ToString() ?? "Bu kullanıcı";
+                            var row = gvUsers.GetFocusedRow();
+                            var nameProp = row?.GetType().GetProperty("KullaniciAd");
+                            string userName = nameProp?.GetValue(row)?.ToString() ?? "Bu kullanıcı";
 
-                if (Swal.Confirm($"'{userName}' kullanıcısını silmek istediğinize emin misiniz?"))
-                {
-                    string result = _userService.Delete(userId.Value);
-                    if (!string.IsNullOrEmpty(result))
-                    {
-                        Swal.Error("Silme başarısız: " + result);
-                        return;
-                    }
-                    
-                    LoadData();
-                    Swal.Success("Kullanıcı başarıyla silindi.");
+                            if (Swal.Confirm($"'{userName}' kullanıcısını silmek istediğinize emin misiniz?"))
+                                {
+                                    string result = _userService.Delete(userId.Value);
+                                    if (!string.IsNullOrEmpty(result))
+                                    {
+                                        Swal.Error("Silme başarısız: " + result);
+                                        return;
+                                    }
+                                    
+                                    LoadData();
+                                    Swal.Success("Kullanıcı başarıyla silindi.");
                 }
-            }
-            catch (Exception ex)
-            {
+                                }
+                                catch (Exception ex)
+                                {
                 Swal.Error("Silme işlemi sırasında hata oluştu: " + ex.Message);
-            }
+                                }
         }
     }
 }

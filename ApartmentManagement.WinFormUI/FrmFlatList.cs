@@ -31,14 +31,16 @@ namespace ApartmentManagement.WinFormUI
         private ComboBoxEdit cmbBlockFilter;
         private ComboBoxEdit cmbApartmentFilter;
         private ComboBoxEdit cmbStatusFilter;
+        private TextEdit txtKatMin;
+        private TextEdit txtKatMax;
+        private TextEdit txtDaireNo;
+        private ComboBoxEdit cmbDaireTipi;
         private SimpleButton btnFilter;
         private SimpleButton btnClear;
+        private SimpleButton btnDetay;
+        private SimpleButton btnSakinAta;
         private LabelControl lblTitle;
 
-        // Missing buttons from backup, adding them now
-        private SimpleButton btnAdd;
-        private SimpleButton btnEdit;
-        private SimpleButton btnDelete;
 
         public FrmFlatList()
         {
@@ -71,10 +73,10 @@ namespace ApartmentManagement.WinFormUI
             this.lblTitle.Location = new Point(20, 15);
             this.Controls.Add(this.lblTitle);
 
-            // Filter Panel
+            // Filter Panel - 2 rows
             var pnlFilter = new Panel();
             pnlFilter.Location = new Point(20, 55);
-            pnlFilter.Size = new Size(1210, 55);
+            pnlFilter.Size = new Size(1210, 110);
             pnlFilter.BackColor = Color.FromArgb(240, 242, 245);
             this.Controls.Add(pnlFilter);
 
@@ -138,11 +140,68 @@ namespace ApartmentManagement.WinFormUI
             this.cmbStatusFilter.SelectedIndex = 0;
             pnlFilter.Controls.Add(this.cmbStatusFilter);
 
+            // Kat Min Filter
+            var lblKatMin = new LabelControl();
+            lblKatMin.Text = "Kat Min";
+            lblKatMin.Location = new Point(630, 5);
+            lblKatMin.Appearance.Font = new Font("Tahoma", 8F);
+            pnlFilter.Controls.Add(lblKatMin);
+            
+            this.txtKatMin = new TextEdit();
+            this.txtKatMin.Location = new Point(630, 22);
+            this.txtKatMin.Size = new Size(80, 26);
+            this.txtKatMin.Properties.Appearance.Font = new Font("Tahoma", 9F);
+            this.txtKatMin.EditValue = "0";
+            pnlFilter.Controls.Add(this.txtKatMin);
+
+            // Kat Max Filter
+            var lblKatMax = new LabelControl();
+            lblKatMax.Text = "Kat Max";
+            lblKatMax.Location = new Point(720, 5);
+            lblKatMax.Appearance.Font = new Font("Tahoma", 8F);
+            pnlFilter.Controls.Add(lblKatMax);
+            
+            this.txtKatMax = new TextEdit();
+            this.txtKatMax.Location = new Point(720, 22);
+            this.txtKatMax.Size = new Size(80, 26);
+            this.txtKatMax.Properties.Appearance.Font = new Font("Tahoma", 9F);
+            this.txtKatMax.EditValue = "999";
+            pnlFilter.Controls.Add(this.txtKatMax);
+
+            // Daire No Filter
+            var lblDaireNo = new LabelControl();
+            lblDaireNo.Text = "Daire No";
+            lblDaireNo.Location = new Point(810, 5);
+            lblDaireNo.Appearance.Font = new Font("Tahoma", 8F);
+            pnlFilter.Controls.Add(lblDaireNo);
+            
+            this.txtDaireNo = new TextEdit();
+            this.txtDaireNo.Location = new Point(810, 22);
+            this.txtDaireNo.Size = new Size(100, 26);
+            this.txtDaireNo.Properties.Appearance.Font = new Font("Tahoma", 9F);
+            pnlFilter.Controls.Add(this.txtDaireNo);
+
+            // Daire Tipi Filter
+            var lblDaireTipi = new LabelControl();
+            lblDaireTipi.Text = "Daire Tipi";
+            lblDaireTipi.Location = new Point(920, 5);
+            lblDaireTipi.Appearance.Font = new Font("Tahoma", 8F);
+            pnlFilter.Controls.Add(lblDaireTipi);
+            
+            this.cmbDaireTipi = new ComboBoxEdit();
+            this.cmbDaireTipi.Location = new Point(920, 22);
+            this.cmbDaireTipi.Size = new Size(120, 26);
+            this.cmbDaireTipi.Properties.Items.AddRange(new[] { "Tümü", "1+1", "2+1", "3+1", "4+1", "5+1" });
+            this.cmbDaireTipi.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.cmbDaireTipi.Properties.Appearance.Font = new Font("Tahoma", 9F);
+            this.cmbDaireTipi.SelectedIndex = 0;
+            pnlFilter.Controls.Add(this.cmbDaireTipi);
+
             // Filter Button
             this.btnFilter = new SimpleButton();
             this.btnFilter.Text = "🔍 Ara";
             this.btnFilter.Size = new Size(100, 30);
-            this.btnFilter.Location = new Point(640, 19);
+            this.btnFilter.Location = new Point(1050, 19);
             this.btnFilter.Appearance.Font = new Font("Tahoma", 10F);
             this.btnFilter.Appearance.BackColor = Color.FromArgb(66, 133, 244);
             this.btnFilter.Appearance.ForeColor = Color.White;
@@ -155,38 +214,48 @@ namespace ApartmentManagement.WinFormUI
             this.btnClear = new SimpleButton();
             this.btnClear.Text = "⊗ Temizle";
             this.btnClear.Size = new Size(100, 30);
-            this.btnClear.Location = new Point(750, 19);
+            this.btnClear.Location = new Point(1050, 55);
             this.btnClear.Appearance.Font = new Font("Tahoma", 10F);
             this.btnClear.Click += BtnClear_Click;
             pnlFilter.Controls.Add(this.btnClear);
 
-            // CRUD Buttons (Top Right of Filter Panel)
-            this.btnAdd = new SimpleButton { Text = "+ Yeni Daire", Size = new Size(100, 30), Location = new Point(880, 19) };
-            this.btnAdd.Appearance.BackColor = Color.FromArgb(40, 167, 69);
-            this.btnAdd.Appearance.ForeColor = Color.White;
-            this.btnAdd.Appearance.Options.UseBackColor = true;
-            this.btnAdd.Appearance.Options.UseForeColor = true;
-            this.btnAdd.Click += BtnAdd_Click;
-            pnlFilter.Controls.Add(this.btnAdd);
+            // Detay Button - positioned to the right of filter panel, aligned with Ara button
+            // Filtre paneli: Location = (20, 55), Ara butonu panel içinde (1050, 19)
+            // Form koordinatlarında: X = 20 + 1050 + 100 (buton genişliği) + 80 (daha fazla boşluk) = 1250, Y = 55 + 19 = 74
+            this.btnDetay = new SimpleButton();
+            this.btnDetay.Text = "✓ Detay";
+            this.btnDetay.Size = new Size(100, 30);
+            this.btnDetay.Location = new Point(1250, 74);
+            this.btnDetay.Appearance.Font = new Font("Tahoma", 10F);
+            this.btnDetay.Appearance.BackColor = Color.FromArgb(59, 130, 246);
+            this.btnDetay.Appearance.ForeColor = Color.White;
+            this.btnDetay.Appearance.Options.UseBackColor = true;
+            this.btnDetay.Appearance.Options.UseForeColor = true;
+            this.btnDetay.Enabled = false;
+            this.btnDetay.Click += BtnDetay_Click;
+            this.Controls.Add(this.btnDetay);
 
-            this.btnEdit = new SimpleButton { Text = "✎ Düzenle", Size = new Size(100, 30), Location = new Point(990, 19) };
-            this.btnEdit.Click += BtnEdit_Click;
-            pnlFilter.Controls.Add(this.btnEdit);
-
-            this.btnDelete = new SimpleButton { Text = "🗑 Sil", Size = new Size(100, 30), Location = new Point(1100, 19) };
-            this.btnDelete.Appearance.BackColor = Color.FromArgb(220, 53, 69);
-            this.btnDelete.Appearance.ForeColor = Color.White;
-            this.btnDelete.Appearance.Options.UseBackColor = true;
-            this.btnDelete.Appearance.Options.UseForeColor = true;
-            this.btnDelete.Click += BtnDelete_Click;
-            pnlFilter.Controls.Add(this.btnDelete);
+            // Sakin Ata Button - positioned below Detay button, aligned with Temizle button
+            // Temizle butonu panel içinde (1050, 55), Form koordinatlarında: X = 20 + 1050 + 100 + 80 = 1250, Y = 55 + 55 = 110
+            this.btnSakinAta = new SimpleButton();
+            this.btnSakinAta.Text = "+ Sakin Ata";
+            this.btnSakinAta.Size = new Size(120, 30);
+            this.btnSakinAta.Location = new Point(1250, 110);
+            this.btnSakinAta.Appearance.Font = new Font("Tahoma", 10F);
+            this.btnSakinAta.Appearance.BackColor = Color.FromArgb(34, 197, 94);
+            this.btnSakinAta.Appearance.ForeColor = Color.White;
+            this.btnSakinAta.Appearance.Options.UseBackColor = true;
+            this.btnSakinAta.Appearance.Options.UseForeColor = true;
+            this.btnSakinAta.Enabled = false;
+            this.btnSakinAta.Click += BtnSakinAta_Click;
+            this.Controls.Add(this.btnSakinAta);
 
             // Grid Control
             this.gcFlats = new GridControl();
             this.gvFlats = new GridView(this.gcFlats);
             this.gcFlats.MainView = this.gvFlats;
-            this.gcFlats.Location = new Point(20, 120);
-            this.gcFlats.Size = new Size(1210, 530);
+            this.gcFlats.Location = new Point(20, 175);
+            this.gcFlats.Size = new Size(1210, 475);
             this.gcFlats.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom;
             
             // Grid View Settings
@@ -198,6 +267,8 @@ namespace ApartmentManagement.WinFormUI
             this.gvFlats.Appearance.HeaderPanel.Font = new Font("Tahoma", 10F, FontStyle.Bold);
             this.gvFlats.Appearance.Row.Font = new Font("Tahoma", 10F);
             this.gvFlats.DoubleClick += GvFlats_DoubleClick;
+            this.gvFlats.CustomDrawCell += GvFlats_CustomDrawCell;
+            this.gvFlats.FocusedRowChanged += GvFlats_FocusedRowChanged;
 
             this.Controls.Add(this.gcFlats);
 
@@ -354,6 +425,30 @@ namespace ApartmentManagement.WinFormUI
                     flats = flats.Where(f => !f.IsEmpty).ToList();
                 }
                 
+                // Kat Min/Max filter
+                if (int.TryParse(txtKatMin.EditValue?.ToString() ?? "0", out int katMin))
+                {
+                    flats = flats.Where(f => f.Floor >= katMin).ToList();
+                }
+                if (int.TryParse(txtKatMax.EditValue?.ToString() ?? "999", out int katMax))
+                {
+                    flats = flats.Where(f => f.Floor <= katMax).ToList();
+                }
+                
+                // Daire No filter
+                string daireNo = txtDaireNo.EditValue?.ToString()?.Trim();
+                if (!string.IsNullOrEmpty(daireNo) && int.TryParse(daireNo, out int daireNoValue))
+                {
+                    flats = flats.Where(f => f.DoorNumber == daireNoValue).ToList();
+                }
+                
+                // Daire Tipi filter
+                string daireTipi = cmbDaireTipi.EditValue?.ToString() ?? "Tümü";
+                if (daireTipi != "Tümü")
+                {
+                    flats = flats.Where(f => f.Type == daireTipi).ToList();
+                }
+                
                 // Create display data
                 var displayData = flats.Select(f => new
                 {
@@ -365,19 +460,201 @@ namespace ApartmentManagement.WinFormUI
                     No = f.DoorNumber,
                     Tip = f.Type ?? "-",
                     Durum = f.IsEmpty ? "Boş" : "Dolu",
-                    SakinSayisi = f.FlatResidents?.Count ?? 0
+                    SakinSayisi = f.FlatResidents?.Count ?? 0,
+                    IsEmpty = f.IsEmpty
                 }).OrderBy(f => f.Site).ThenBy(f => f.Blok).ThenBy(f => f.Apartman).ThenBy(f => f.Kat).ThenBy(f => f.No).ToList();
                 
                 gcFlats.DataSource = displayData;
                 gvFlats.PopulateColumns();
                 
+                // Hide Id column
                 if (gvFlats.Columns["Id"] != null) gvFlats.Columns["Id"].Visible = false;
-                if (gvFlats.Columns["SakinSayisi"] != null) gvFlats.Columns["SakinSayisi"].Caption = "Aktif Sakin";
+                
+                // Configure columns
+                ConfigureColumns();
             }
             catch (Exception ex)
             {
                 Swal.Error("Veriler yüklenirken hata oluştu: " + ex.Message);
             }
+        }
+
+        private void ConfigureColumns()
+        {
+            // Set column order and properties
+            int visibleIndex = 0;
+            
+            if (gvFlats.Columns["Site"] != null)
+            {
+                gvFlats.Columns["Site"].VisibleIndex = visibleIndex++;
+            }
+            
+            if (gvFlats.Columns["Blok"] != null)
+            {
+                gvFlats.Columns["Blok"].VisibleIndex = visibleIndex++;
+            }
+            
+            if (gvFlats.Columns["Apartman"] != null)
+            {
+                gvFlats.Columns["Apartman"].VisibleIndex = visibleIndex++;
+            }
+            
+            if (gvFlats.Columns["Kat"] != null)
+            {
+                gvFlats.Columns["Kat"].VisibleIndex = visibleIndex++;
+                gvFlats.Columns["Kat"].AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            }
+            
+            if (gvFlats.Columns["No"] != null)
+            {
+                gvFlats.Columns["No"].VisibleIndex = visibleIndex++;
+                gvFlats.Columns["No"].AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            }
+            
+            if (gvFlats.Columns["Tip"] != null)
+            {
+                gvFlats.Columns["Tip"].VisibleIndex = visibleIndex++;
+            }
+            
+            if (gvFlats.Columns["Durum"] != null)
+            {
+                gvFlats.Columns["Durum"].VisibleIndex = visibleIndex++;
+                gvFlats.Columns["Durum"].Width = 100;
+            }
+            
+            // Aktif Sakin column - right after Durum
+            if (gvFlats.Columns["SakinSayisi"] != null)
+            {
+                gvFlats.Columns["SakinSayisi"].VisibleIndex = visibleIndex++;
+                gvFlats.Columns["SakinSayisi"].Caption = "Aktif Sakin";
+                gvFlats.Columns["SakinSayisi"].Width = 120;
+                gvFlats.Columns["SakinSayisi"].Visible = true;
+                gvFlats.Columns["SakinSayisi"].AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            }
+            
+            // Hide IsEmpty column
+            if (gvFlats.Columns["IsEmpty"] != null)
+            {
+                gvFlats.Columns["IsEmpty"].Visible = false;
+            }
+            
+            // Hide any other columns that might exist
+            foreach (DevExpress.XtraGrid.Columns.GridColumn col in gvFlats.Columns)
+            {
+                if (col.FieldName != "Site" && col.FieldName != "Blok" && col.FieldName != "Apartman" && 
+                    col.FieldName != "Kat" && col.FieldName != "No" && col.FieldName != "Tip" && 
+                    col.FieldName != "Durum" && col.FieldName != "SakinSayisi" && col.FieldName != "Id" &&
+                    col.FieldName != "IsEmpty")
+                {
+                    col.Visible = false;
+                }
+            }
+        }
+        
+        private void GvFlats_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
+        {
+            // Draw status badge
+            if (e.Column != null && e.Column.FieldName == "Durum")
+            {
+                string status = e.CellValue?.ToString() ?? "Boş";
+                bool isDolu = status.Equals("Dolu", StringComparison.OrdinalIgnoreCase);
+                
+                // Draw badge background
+                Color badgeColor = isDolu ? Color.FromArgb(34, 197, 94) : Color.FromArgb(59, 130, 246); // Green for Dolu, Blue for Boş
+                using (var brush = new SolidBrush(badgeColor))
+                {
+                    // Rounded rectangle for badge
+                    int padding = 8;
+                    int height = 24;
+                    int width = Math.Min(70, e.Bounds.Width - padding * 2);
+                    int x = e.Bounds.X + (e.Bounds.Width - width) / 2;
+                    int y = e.Bounds.Y + (e.Bounds.Height - height) / 2;
+                    
+                    var rect = new Rectangle(x, y, width, height);
+                    e.Graphics.FillRectangle(brush, rect);
+                }
+                
+                // Draw text
+                using (var textBrush = new SolidBrush(Color.White))
+                using (var font = new Font("Tahoma", 8F, FontStyle.Bold))
+                {
+                    var textRect = e.Bounds;
+                    var sf = new StringFormat
+                    {
+                        Alignment = StringAlignment.Center,
+                        LineAlignment = StringAlignment.Center
+                    };
+                    e.Graphics.DrawString(status, font, textBrush, textRect, sf);
+                }
+                
+                e.Handled = true;
+            }
+        }
+        
+        private void GvFlats_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
+        {
+            // Enable/disable buttons based on selection
+            bool hasSelection = gvFlats.FocusedRowHandle >= 0;
+            btnDetay.Enabled = hasSelection;
+            btnSakinAta.Enabled = hasSelection;
+        }
+        
+        private void BtnDetay_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var row = gvFlats.GetFocusedRow();
+                if (row == null)
+                {
+                    Swal.Warning("Lütfen detaylarını görmek için bir daire seçin.");
+                    return;
+                }
+
+                var idProp = row.GetType().GetProperty("Id");
+                if (idProp == null) return;
+
+                int flatId = (int)idProp.GetValue(row);
+                ShowFlatDetails(flatId);
+            }
+            catch (Exception ex)
+            {
+                Swal.Error("Detay gösterilirken hata oluştu: " + ex.Message);
+            }
+        }
+        
+        private void BtnSakinAta_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var row = gvFlats.GetFocusedRow();
+                if (row == null)
+                {
+                    Swal.Warning("Lütfen sakin atamak için bir daire seçin.");
+                    return;
+                }
+
+                var idProp = row.GetType().GetProperty("Id");
+                if (idProp == null) return;
+
+                int flatId = (int)idProp.GetValue(row);
+                AssignResident(flatId);
+            }
+            catch (Exception ex)
+            {
+                Swal.Error("Sakin atama işlemi sırasında hata oluştu: " + ex.Message);
+            }
+        }
+        
+        private void ShowFlatDetails(int flatId)
+        {
+            // TODO: Implement flat details form
+            Swal.Info($"Daire detayları gösterilecek (ID: {flatId})");
+        }
+        
+        private void AssignResident(int flatId)
+        {
+            // TODO: Implement assign resident form
+            Swal.Info($"Sakin atama formu açılacak (Daire ID: {flatId})");
         }
 
         private void BtnFilter_Click(object sender, EventArgs e)
@@ -391,52 +668,16 @@ namespace ApartmentManagement.WinFormUI
             cmbBlockFilter.SelectedIndex = 0;
             cmbApartmentFilter.SelectedIndex = 0;
             cmbStatusFilter.SelectedIndex = 0;
-            LoadData();
-        }
-
-        private void BtnAdd_Click(object sender, EventArgs e)
-        {
-            var frm = new FrmFlatManagement();
-            frm.ShowDialog();
+            txtKatMin.EditValue = "0";
+            txtKatMax.EditValue = "999";
+            txtDaireNo.EditValue = "";
+            cmbDaireTipi.SelectedIndex = 0;
             LoadData();
         }
         
         private void GvFlats_DoubleClick(object sender, EventArgs e)
         {
-            var frm = new FrmFlatManagement();
-            frm.ShowDialog();
-            LoadData();
-        }
-
-        private void BtnEdit_Click(object sender, EventArgs e)
-        {
-            var frm = new FrmFlatManagement();
-            frm.ShowDialog();
-            LoadData();
-        }
-
-        private void BtnDelete_Click(object sender, EventArgs e)
-        {
-            var row = gvFlats.GetFocusedRow();
-            if (row != null)
-            {
-                var idProperty = row.GetType().GetProperty("Id");
-                var noProperty = row.GetType().GetProperty("No");
-                if (idProperty != null)
-                {
-                    int flatId = (int)idProperty.GetValue(row);
-                    string flatNo = noProperty?.GetValue(row)?.ToString() ?? "Bu daire";
-                    
-                    if (Swal.Confirm($"'{flatNo}' numaralı daireyi silmek istediğinize emin misiniz?"))
-                    {
-                        DeleteFlat(flatId);
-                    }
-                }
-            }
-            else
-            {
-                Swal.Warning("Lütfen silmek için bir daire seçin.");
-            }
+            // Double click functionality can be added here if needed
         }
         
         protected override void Dispose(bool disposing)

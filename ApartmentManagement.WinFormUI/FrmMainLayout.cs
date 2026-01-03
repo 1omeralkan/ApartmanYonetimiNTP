@@ -286,6 +286,13 @@ namespace ApartmentManagement.WinFormUI
                 buttonY += buttonHeight + spacing;
             }
 
+            // Onay Bekleyenler - Admin ve SiteManager için
+            if (role == "SuperAdmin" || role == "Admin" || role == "SiteManager")
+            {
+                AddMenuButton("⏳ Onay Bekleyenler", "⏳", buttonY, () => ShowContent(new FrmPendingApprovals(_currentUser)));
+                buttonY += buttonHeight + spacing;
+            }
+
             // Separator before settings
             buttonY += 15;
             var separator2 = CreateSeparator(buttonY);
@@ -322,7 +329,12 @@ namespace ApartmentManagement.WinFormUI
             btn.Appearance.ForeColor = TEXT_PRIMARY;
             btn.Appearance.Options.UseBackColor = true;
             btn.Appearance.Options.UseForeColor = true;
-            btn.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            btn.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near; // Sola hizalı
+            btn.Appearance.TextOptions.Trimming = DevExpress.Utils.Trimming.EllipsisCharacter;
+            if (_sidebarExpanded)
+            {
+                btn.Padding = new Padding(15, 0, 0, 0); // Sol taraftan padding ekle
+            }
             btn.Cursor = Cursors.Hand;
             btn.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             

@@ -50,7 +50,7 @@ namespace ApartmentManagement.WinFormUI
             InitializeComponent();
             if (_isEditMode)
             {
-                LoadData();
+            LoadData();
             }
         }
 
@@ -396,24 +396,24 @@ namespace ApartmentManagement.WinFormUI
                 if (_isEditMode)
                 {
                     // Update existing user
-                    _currentUser.FirstName = txtFirstName.Text.Trim();
-                    _currentUser.LastName = txtLastName.Text.Trim();
-                    _currentUser.Email = txtEmail.Text.Trim();
-                    _currentUser.Phone = txtPhone.Text.Trim();
+                _currentUser.FirstName = txtFirstName.Text.Trim();
+                _currentUser.LastName = txtLastName.Text.Trim();
+                _currentUser.Email = txtEmail.Text.Trim();
+                _currentUser.Phone = txtPhone.Text.Trim();
                     _currentUser.TcNo = txtTcNo.Text.Trim();
                     _currentUser.Gender = cmbGender.EditValue?.ToString() ?? "";
                     _currentUser.BirthDate = dtBirthDate.EditValue as DateTime?;
                     _currentUser.Address = txtAddress.Text.Trim();
                     // Role remains unchanged in edit mode
 
-                    string result = _userService.Update(_currentUser);
-                    if (!string.IsNullOrEmpty(result))
-                    {
-                        Swal.Error("Güncelleme hatası: " + result);
-                        return;
-                    }
-                    
-                    Swal.Success("Kullanıcı başarıyla güncellendi.");
+                string result = _userService.Update(_currentUser);
+                if (!string.IsNullOrEmpty(result))
+                {
+                    Swal.Error("Güncelleme hatası: " + result);
+                    return;
+                }
+                
+                Swal.Success("Kullanıcı başarıyla güncellendi.");
                 }
                 else
                 {

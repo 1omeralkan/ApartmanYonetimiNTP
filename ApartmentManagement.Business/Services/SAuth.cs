@@ -34,6 +34,12 @@ namespace ApartmentManagement.Business.Services
                 var user = _context.Users.FirstOrDefault(u => u.Email == email);
                 if (user == null) return null;
 
+                // Check if user is approved (SuperAdmin and Admin are always approved)
+                if (!user.IsApproved && user.Role != "SuperAdmin" && user.Role != "Admin")
+                {
+                    return null; // User not approved
+                }
+
                 if (PasswordHelper.VerifyPassword(password, user.PasswordHash))
                 {
                     // Update last login date
@@ -112,7 +118,9 @@ namespace ApartmentManagement.Business.Services
                     EmergencyContact = emergencyContact,
                     EmergencyPhone = emergencyPhone,
                     PasswordHash = PasswordHelper.HashPassword(password),
-                    Role = "Resident"
+                    Role = "Resident",
+                    IsApproved = false, // New users need approval
+                    CreatedDate = DateTime.UtcNow
                 };
 
                 _context.Users.Add(user);
@@ -140,7 +148,9 @@ namespace ApartmentManagement.Business.Services
                         PasswordHash = PasswordHelper.HashPassword("123"),
                         Role = "SuperAdmin",
                         Phone = "5555555555",
-                        TcNo = "11111111111"
+                        TcNo = "11111111111",
+                        IsApproved = true, // Admin is auto-approved
+                        CreatedDate = DateTime.UtcNow
                     };
 
                     _context.Users.Add(admin);

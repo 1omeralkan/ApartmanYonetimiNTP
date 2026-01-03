@@ -37,6 +37,14 @@ namespace ApartmentManagement.DataAccess.Entities
         [MaxLength(20)]
         public string Role { get; set; }
         
+        // Approval tracking
+        public bool IsApproved { get; set; } = false;
+        public DateTime? ApprovedDate { get; set; }
+        public int? ApprovedByUserId { get; set; }
+        
+        // Registration tracking
+        public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
+        
         // Login tracking
         public DateTime? LastLoginDate { get; set; }
     }

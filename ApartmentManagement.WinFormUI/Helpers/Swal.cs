@@ -50,9 +50,9 @@ namespace ApartmentManagement.WinFormUI.Helpers
         /// <summary>
         /// Show a confirmation dialog
         /// </summary>
-        public static bool Confirm(string message, string title = "Emin misiniz?")
+        public static bool Confirm(string message, string title = "Emin misiniz?", string confirmButtonText = "Evet, Onayla", Color? confirmButtonColor = null)
         {
-            return ShowConfirm(title, message);
+            return ShowConfirm(title, message, confirmButtonText, confirmButtonColor);
         }
 
         private static void ShowAlert(SwalType type, string title, string message)
@@ -61,9 +61,9 @@ namespace ApartmentManagement.WinFormUI.Helpers
             frm.ShowDialog();
         }
 
-        private static bool ShowConfirm(string title, string message)
+        private static bool ShowConfirm(string title, string message, string confirmButtonText = "Evet, Onayla", Color? confirmButtonColor = null)
         {
-            var frm = new FrmSwalConfirm(title, message);
+            var frm = new FrmSwalConfirm(title, message, confirmButtonText, confirmButtonColor);
             return frm.ShowDialog() == DialogResult.Yes;
         }
     }
@@ -231,11 +231,15 @@ namespace ApartmentManagement.WinFormUI.Helpers
     {
         private string _title;
         private string _message;
+        private string _confirmButtonText;
+        private Color? _confirmButtonColor;
 
-        public FrmSwalConfirm(string title, string message)
+        public FrmSwalConfirm(string title, string message, string confirmButtonText = "Evet, Onayla", Color? confirmButtonColor = null)
         {
             _title = title;
             _message = message;
+            _confirmButtonText = confirmButtonText;
+            _confirmButtonColor = confirmButtonColor ?? Color.FromArgb(34, 197, 94); // Default green for approve
             InitializeComponent();
         }
 
@@ -321,12 +325,12 @@ namespace ApartmentManagement.WinFormUI.Helpers
 
             // Confirm Button
             var btnConfirm = new SimpleButton();
-            btnConfirm.Text = "Evet, Sil";
+            btnConfirm.Text = _confirmButtonText;
             btnConfirm.Size = new Size(130, 45);
             btnConfirm.Location = new Point(150, 0);
             btnConfirm.Appearance.Font = new Font("Tahoma", 11F, FontStyle.Bold);
             btnConfirm.Appearance.ForeColor = Color.White;
-            btnConfirm.Appearance.BackColor = Color.FromArgb(220, 53, 69);
+            btnConfirm.Appearance.BackColor = _confirmButtonColor.Value;
             btnConfirm.Appearance.Options.UseFont = true;
             btnConfirm.Appearance.Options.UseForeColor = true;
             btnConfirm.Appearance.Options.UseBackColor = true;
