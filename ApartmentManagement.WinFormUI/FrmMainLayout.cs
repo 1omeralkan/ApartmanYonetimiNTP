@@ -286,6 +286,42 @@ namespace ApartmentManagement.WinFormUI
                 buttonY += buttonHeight + spacing;
             }
 
+            // Aidat Yönetimi - SiteManager ve ApartmentManager için
+            if (role == "SuperAdmin" || role == "Admin" || role == "SiteManager" || role == "ApartmentManager")
+            {
+                AddMenuButton("💰 Aidat Yönetimi", "💰", buttonY, () => ShowContent(new FrmDuesList(_currentUser)));
+                buttonY += buttonHeight + spacing;
+            }
+
+            // Gider Yönetimi - SiteManager ve ApartmentManager için
+            if (role == "SuperAdmin" || role == "Admin" || role == "SiteManager" || role == "ApartmentManager")
+            {
+                AddMenuButton("📊 Gider Yönetimi", "📊", buttonY, () => ShowContent(new FrmExpenseList(_currentUser)));
+                buttonY += buttonHeight + spacing;
+            }
+
+            // Duyuru Yönetimi - Tüm roller için (Resident sadece görüntüleme)
+            AddMenuButton("📢 Duyurular", "📢", buttonY, () => ShowContent(new FrmAnnouncementList(_currentUser)));
+            buttonY += buttonHeight + spacing;
+
+            // Şikayet/Talep Sistemi - Tüm roller için
+            AddMenuButton("📝 Şikayet/Talep", "📝", buttonY, () => ShowContent(new FrmComplaintList(_currentUser)));
+            buttonY += buttonHeight + spacing;
+
+            // Site İstatistikleri - SiteManager için
+            if (role == "SuperAdmin" || role == "Admin" || role == "SiteManager")
+            {
+                AddMenuButton("📊 Site İstatistikleri", "📊", buttonY, () => ShowContent(new FrmSiteStatistics(_currentUser)));
+                buttonY += buttonHeight + spacing;
+            }
+
+            // Apartman İstatistikleri - ApartmentManager için
+            if (role == "SuperAdmin" || role == "Admin" || role == "ApartmentManager")
+            {
+                AddMenuButton("📊 Apartman İstatistikleri", "📊", buttonY, () => ShowContent(new FrmApartmentStatistics(_currentUser)));
+                buttonY += buttonHeight + spacing;
+            }
+
             // Onay Bekleyenler - Admin ve SiteManager için
             if (role == "SuperAdmin" || role == "Admin" || role == "SiteManager")
             {
@@ -299,8 +335,19 @@ namespace ApartmentManagement.WinFormUI
             this.pnlSidebar.Controls.Add(separator2);
             buttonY += 20;
 
-            // Settings
-            AddMenuButton("⚙️ Ayarlar", "⚙️", buttonY, () => Helpers.Swal.Info("Ayarlar yakında!"));
+            // Ödeme Takibi - Tüm roller için
+            AddMenuButton("💳 Ödeme Takibi", "💳", buttonY, () => ShowContent(new FrmPaymentList(_currentUser)));
+            buttonY += buttonHeight + spacing;
+
+            // Settings - Profil ekranını aç
+            AddMenuButton("⚙️ Ayarlar", "⚙️", buttonY, () => {
+                var profileForm = new FrmProfile(_currentUser);
+                if (profileForm.ShowDialog() == DialogResult.OK)
+                {
+                    // Profil güncellendi, dashboard'u yenile
+                    ShowDashboard();
+                }
+            });
         }
 
         private Panel CreateSeparator(int y)
@@ -383,6 +430,25 @@ namespace ApartmentManagement.WinFormUI
         private void ShowDashboard()
         {
             this.pnlContent.Controls.Clear();
+
+            // Rol bazlı dashboard gösterimi
+            string role = _currentUser?.Role ?? "Resident";
+            if (role == "Resident")
+            {
+                // Resident için özel dashboard
+                var residentDashboard = new FrmResidentDashboard(_currentUser);
+                ShowContent(residentDashboard);
+                return;
+            }
+            else if (role == "ApartmentManager")
+            {
+                // ApartmentManager için özel dashboard
+                var apartmentManagerDashboard = new FrmApartmentManagerDashboard(_currentUser);
+                ShowContent(apartmentManagerDashboard);
+                return;
+            }
+
+            // Diğer roller için genel dashboard
 
             // Merkez içerik container
             Panel contentContainer = new Panel();

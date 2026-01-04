@@ -34,6 +34,14 @@ namespace ApartmentManagement.WinFormUI
         private TextEdit txtPassword;
         private TextEdit txtPasswordRepeat;
         private MemoEdit txtAddress;
+        // Acil Durum Bilgileri
+        private TextEdit txtEmergencyContact;
+        private TextEdit txtEmergencyPhone;
+        // Sistem Ayarları
+        private CheckedListBoxControl lstRoles;
+        private CheckEdit chkUserActive;
+        private CheckEdit chkEmailNotifications;
+        private CheckEdit chkSMSNotifications;
         private SimpleButton btnSave;
         private SimpleButton btnCancel;
 
@@ -63,12 +71,16 @@ namespace ApartmentManagement.WinFormUI
 
             // Form Settings
             this.Text = _isEditMode ? "Kullanıcı Düzenle" : "Yeni Kullanıcı Ekle";
-            this.ClientSize = new Size(950, 750);
+            // Form yüksekliğini ekran yüksekliğinin %80'i olarak ayarla, max 800px
+            int screenHeight = Screen.PrimaryScreen.WorkingArea.Height;
+            int formHeight = Math.Min((int)(screenHeight * 0.8), 800);
+            this.ClientSize = new Size(950, formHeight);
             this.StartPosition = FormStartPosition.CenterScreen;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.BackColor = Color.FromArgb(248, 249, 250);
             this.AutoScroll = true;
+            this.AutoScrollMinSize = new Size(0, 1200); // İçerik yüksekliği için minimum scroll alanı
             this.Font = new Font("Tahoma", 8.25F);
 
             int leftMargin = 40;
@@ -117,7 +129,9 @@ namespace ApartmentManagement.WinFormUI
 
             // ========== FORM PANEL ==========
             var pnlForm = new RoundedPanel();
-            pnlForm.Size = new Size(contentWidth, this.Height - currentY - 80);
+            // Panel yüksekliğini içeriğe göre ayarla (tüm içerik için yeterli alan)
+            int panelHeight = 1200; // İçerik yüksekliği için yeterli alan
+            pnlForm.Size = new Size(contentWidth, panelHeight);
             pnlForm.Location = new Point(leftMargin, currentY);
             pnlForm.BackColor = Color.White;
             pnlForm.BorderRadius = 12;
@@ -251,6 +265,97 @@ namespace ApartmentManagement.WinFormUI
             pnlForm.Controls.Add(this.txtAddress);
             panelY += 110;
 
+            // ========== ACIL DURUM BİLGİLERİ SECTION ==========
+            panelY += 30; // Add spacing before new section
+            
+            // Section Title: Acil Durum Bilgileri
+            var lblEmergencyTitle = new LabelControl();
+            lblEmergencyTitle.Text = "📞 Acil Durum Bilgileri";
+            lblEmergencyTitle.Appearance.Font = new Font("Tahoma", 12F, FontStyle.Bold);
+            lblEmergencyTitle.Appearance.ForeColor = Color.FromArgb(30, 30, 46);
+            lblEmergencyTitle.Location = new Point(panelLeft, panelY);
+            pnlForm.Controls.Add(lblEmergencyTitle);
+            panelY += 40;
+
+            // Acil Durum Kişi Adı (Left)
+            AddFieldLabel(pnlForm, "Acil Durum Kişi Adı", leftColX, panelY, false);
+            panelY += 20;
+            this.txtEmergencyContact = AddTextEdit(pnlForm, leftColX, panelY, columnWidth, fieldHeight);
+            panelY += 45;
+
+            // Acil Durum Telefon (Right)
+            AddFieldLabel(pnlForm, "Acil Durum Telefon", rightColX, panelY - 65, false);
+            this.txtEmergencyPhone = AddTextEdit(pnlForm, rightColX, panelY - 45, columnWidth, fieldHeight);
+            this.txtEmergencyPhone.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Simple;
+            this.txtEmergencyPhone.Properties.Mask.EditMask = "0000 000 00 00";
+
+            // ========== SİSTEM AYARLARI SECTION ==========
+            panelY += 30; // Add spacing before new section
+            
+            // Section Title: Sistem Ayarları
+            var lblSystemTitle = new LabelControl();
+            lblSystemTitle.Text = "⚙️ Sistem Ayarları";
+            lblSystemTitle.Appearance.Font = new Font("Tahoma", 12F, FontStyle.Bold);
+            lblSystemTitle.Appearance.ForeColor = Color.FromArgb(30, 30, 46);
+            lblSystemTitle.Location = new Point(panelLeft, panelY);
+            pnlForm.Controls.Add(lblSystemTitle);
+            panelY += 40;
+
+            // Roller Label
+            AddFieldLabel(pnlForm, "Roller", panelLeft, panelY, false);
+            panelY += 20;
+            
+            // Roller CheckedListBoxControl (Multi-select)
+            this.lstRoles = new CheckedListBoxControl();
+            this.lstRoles.Location = new Point(panelLeft, panelY);
+            this.lstRoles.Size = new Size(contentWidth - 70, 120);
+            this.lstRoles.Appearance.Font = new Font("Tahoma", 8.5F);
+            this.lstRoles.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat;
+            // Add roles with display name and value mapping
+            this.lstRoles.Items.Add("Admin", "Admin");
+            this.lstRoles.Items.Add("Apartment manager", "ApartmentManager");
+            this.lstRoles.Items.Add("Resident", "Resident");
+            this.lstRoles.Items.Add("Site manager", "SiteManager");
+            // Note: SuperAdmin is not selectable from UI
+            pnlForm.Controls.Add(this.lstRoles);
+            panelY += 130;
+
+            // Info label for multi-select
+            var lblRoleInfo = new LabelControl();
+            lblRoleInfo.Text = "Ctrl tuşu ile birden fazla rol seçebilirsiniz";
+            lblRoleInfo.Appearance.Font = new Font("Tahoma", 7.5F);
+            lblRoleInfo.Appearance.ForeColor = Color.FromArgb(100, 100, 100);
+            lblRoleInfo.Location = new Point(panelLeft, panelY);
+            pnlForm.Controls.Add(lblRoleInfo);
+            panelY += 30;
+
+            // Kullanıcı Aktif Checkbox
+            this.chkUserActive = new CheckEdit();
+            this.chkUserActive.Text = "Kullanıcı Aktif";
+            this.chkUserActive.Location = new Point(panelLeft, panelY);
+            this.chkUserActive.Properties.Appearance.Font = new Font("Tahoma", 8.5F);
+            this.chkUserActive.Checked = true; // Default active
+            pnlForm.Controls.Add(this.chkUserActive);
+            panelY += 35;
+
+            // E-posta Bildirimleri Checkbox
+            this.chkEmailNotifications = new CheckEdit();
+            this.chkEmailNotifications.Text = "E-posta Bildirimleri";
+            this.chkEmailNotifications.Location = new Point(panelLeft, panelY);
+            this.chkEmailNotifications.Properties.Appearance.Font = new Font("Tahoma", 8.5F);
+            this.chkEmailNotifications.Checked = true; // Default enabled
+            pnlForm.Controls.Add(this.chkEmailNotifications);
+            panelY += 35;
+
+            // SMS Bildirimleri Checkbox
+            this.chkSMSNotifications = new CheckEdit();
+            this.chkSMSNotifications.Text = "SMS Bildirimleri";
+            this.chkSMSNotifications.Location = new Point(panelLeft, panelY);
+            this.chkSMSNotifications.Properties.Appearance.Font = new Font("Tahoma", 8.5F);
+            this.chkSMSNotifications.Checked = false; // Default disabled
+            pnlForm.Controls.Add(this.chkSMSNotifications);
+            panelY += 40;
+
             // ========== BUTTONS ==========
             panelY += 20; // Add spacing before buttons
             
@@ -352,6 +457,29 @@ namespace ApartmentManagement.WinFormUI
                     dtBirthDate.EditValue = _currentUser.BirthDate.Value;
                 }
                 txtAddress.Text = _currentUser.Address ?? "";
+                
+                // Acil Durum Bilgileri
+                txtEmergencyContact.Text = _currentUser.EmergencyContact ?? "";
+                txtEmergencyPhone.Text = _currentUser.EmergencyPhone ?? "";
+                
+                // Sistem Ayarları
+                // Role seçimi (CheckedListBoxControl'de seçili yap)
+                if (!string.IsNullOrEmpty(_currentUser.Role))
+                {
+                    for (int i = 0; i < lstRoles.Items.Count; i++)
+                    {
+                        var item = lstRoles.Items[i];
+                        if (item.Value?.ToString() == _currentUser.Role)
+                        {
+                            lstRoles.SetItemChecked(i, true);
+                            break;
+                        }
+                    }
+                }
+                
+                chkUserActive.Checked = _currentUser.IsApproved;
+                chkEmailNotifications.Checked = _currentUser.EmailNotifications;
+                chkSMSNotifications.Checked = _currentUser.SMSNotifications;
             }
         }
 
@@ -393,6 +521,16 @@ namespace ApartmentManagement.WinFormUI
 
             try
             {
+                // Get selected role (first checked role, or default to Resident)
+                string selectedRole = "Resident"; // Default
+                var checkedIndices = lstRoles.CheckedIndices;
+                if (checkedIndices.Count > 0)
+                {
+                    int firstIndex = checkedIndices[0];
+                    var item = lstRoles.Items[firstIndex];
+                    selectedRole = item.Value?.ToString() ?? "Resident";
+                }
+
                 if (_isEditMode)
                 {
                     // Update existing user
@@ -404,7 +542,16 @@ namespace ApartmentManagement.WinFormUI
                     _currentUser.Gender = cmbGender.EditValue?.ToString() ?? "";
                     _currentUser.BirthDate = dtBirthDate.EditValue as DateTime?;
                     _currentUser.Address = txtAddress.Text.Trim();
-                    // Role remains unchanged in edit mode
+                    
+                    // Acil Durum Bilgileri
+                    _currentUser.EmergencyContact = txtEmergencyContact.Text.Trim();
+                    _currentUser.EmergencyPhone = txtEmergencyPhone.Text.Trim();
+                    
+                    // Sistem Ayarları
+                    _currentUser.Role = selectedRole;
+                    _currentUser.IsApproved = chkUserActive.Checked;
+                    _currentUser.EmailNotifications = chkEmailNotifications.Checked;
+                    _currentUser.SMSNotifications = chkSMSNotifications.Checked;
 
                 string result = _userService.Update(_currentUser);
                 if (!string.IsNullOrEmpty(result))
@@ -417,7 +564,7 @@ namespace ApartmentManagement.WinFormUI
                 }
                 else
                 {
-                    // Create new user (default role: Resident)
+                    // Create new user
                     var newUser = _authService.RegisterFull(
                         txtFirstName.Text.Trim(),
                         txtLastName.Text.Trim(),
@@ -427,11 +574,24 @@ namespace ApartmentManagement.WinFormUI
                         txtEmail.Text.Trim(),
                         txtPhone.Text.Trim(),
                         txtAddress.Text.Trim(),
-                        "", // EmergencyContact
-                        "", // EmergencyPhone
+                        txtEmergencyContact.Text.Trim(), // EmergencyContact
+                        txtEmergencyPhone.Text.Trim(), // EmergencyPhone
                         txtPassword.Text
                     );
-                    // Role is set to "Resident" by default in RegisterFull
+                    
+                    // Sistem Ayarları - Update after creation
+                    newUser.Role = selectedRole;
+                    newUser.IsApproved = chkUserActive.Checked;
+                    newUser.EmailNotifications = chkEmailNotifications.Checked;
+                    newUser.SMSNotifications = chkSMSNotifications.Checked;
+                    
+                    // Update user with system settings
+                    string updateResult = _userService.Update(newUser);
+                    if (!string.IsNullOrEmpty(updateResult))
+                    {
+                        Swal.Error("Kullanıcı oluşturuldu ancak ayarlar kaydedilemedi: " + updateResult);
+                        return;
+                    }
 
                     Swal.Success("Kullanıcı başarıyla oluşturuldu.");
                 }

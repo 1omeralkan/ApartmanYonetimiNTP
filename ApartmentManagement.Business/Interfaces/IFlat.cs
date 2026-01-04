@@ -14,5 +14,8 @@ namespace ApartmentManagement.Business.Interfaces
         string Update(Flat flat);
         string Delete(int id);
         string CreateFlatsForApartment(Apartment apartment);
+        // Resident için özel metodlar
+        List<Flat> GetFlatsByUserId(int userId);
+        Flat GetResidentFlat(int userId);
     }
 }

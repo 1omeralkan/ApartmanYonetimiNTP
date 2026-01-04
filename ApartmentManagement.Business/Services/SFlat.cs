@@ -181,5 +181,44 @@ namespace ApartmentManagement.Business.Services
                 return ex.Message;
             }
         }
+
+        public List<Flat> GetFlatsByUserId(int userId)
+        {
+            try
+            {
+                return _context.FlatResidents
+                    .Where(fr => fr.UserId == userId && (fr.EndDate == null || fr.EndDate > DateTime.UtcNow))
+                    .Include(fr => fr.Flat)
+                        .ThenInclude(f => f.Apartment)
+                            .ThenInclude(a => a.Block)
+                                .ThenInclude(b => b.Site)
+                    .Select(fr => fr.Flat)
+                    .ToList();
+            }
+            catch
+            {
+                return new List<Flat>();
+            }
+        }
+
+        public Flat GetResidentFlat(int userId)
+        {
+            try
+            {
+                var flatResident = _context.FlatResidents
+                    .Where(fr => fr.UserId == userId && (fr.EndDate == null || fr.EndDate > DateTime.UtcNow))
+                    .Include(fr => fr.Flat)
+                        .ThenInclude(f => f.Apartment)
+                            .ThenInclude(a => a.Block)
+                                .ThenInclude(b => b.Site)
+                    .FirstOrDefault();
+
+                return flatResident?.Flat;
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }

@@ -14,6 +14,8 @@ namespace ApartmentManagement.DataAccess
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Dues> Dues { get; set; }
         public DbSet<Expense> Expenses { get; set; }
+        public DbSet<Announcement> Announcements { get; set; }
+        public DbSet<Complaint> Complaints { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

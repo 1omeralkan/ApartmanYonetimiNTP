@@ -47,5 +47,9 @@ namespace ApartmentManagement.DataAccess.Entities
         
         // Login tracking
         public DateTime? LastLoginDate { get; set; }
+        
+        // Notification settings
+        public bool EmailNotifications { get; set; } = true;
+        public bool SMSNotifications { get; set; } = false;
     }
 }

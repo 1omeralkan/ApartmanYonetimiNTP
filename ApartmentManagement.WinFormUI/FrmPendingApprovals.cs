@@ -298,6 +298,18 @@ namespace ApartmentManagement.WinFormUI
             
             // Checkbox column (handled by MultiSelectMode)
             
+            // KullaniciId ve KayitTarihiRelative sütunlarını gizle
+            if (gvUsers.Columns["KullaniciId"] != null)
+            {
+                gvUsers.Columns["KullaniciId"].Visible = false;
+            }
+            
+            if (gvUsers.Columns["KayitTarihiRelative"] != null)
+            {
+                gvUsers.Columns["KayitTarihiRelative"].Visible = false;
+            }
+            
+            // Kullanıcı sütunu - en başta
             if (gvUsers.Columns["KullaniciAd"] != null)
             {
                 gvUsers.Columns["KullaniciAd"].VisibleIndex = visibleIndex++;
@@ -308,27 +320,29 @@ namespace ApartmentManagement.WinFormUI
             if (gvUsers.Columns["Email"] != null)
             {
                 gvUsers.Columns["Email"].VisibleIndex = visibleIndex++;
+                gvUsers.Columns["Email"].Caption = "Email";
                 gvUsers.Columns["Email"].Width = 250;
             }
             
             if (gvUsers.Columns["Telefon"] != null)
             {
                 gvUsers.Columns["Telefon"].VisibleIndex = visibleIndex++;
+                gvUsers.Columns["Telefon"].Caption = "Telefon";
                 gvUsers.Columns["Telefon"].Width = 150;
-            }
-            
-            if (gvUsers.Columns["KayitTarihi"] != null)
-            {
-                gvUsers.Columns["KayitTarihi"].VisibleIndex = visibleIndex++;
-                gvUsers.Columns["KayitTarihi"].Caption = "Kayıt Tarihi";
-                gvUsers.Columns["KayitTarihi"].Width = 180;
             }
             
             if (gvUsers.Columns["Rol"] != null)
             {
                 gvUsers.Columns["Rol"].VisibleIndex = visibleIndex++;
                 gvUsers.Columns["Rol"].Caption = "Roller";
-                gvUsers.Columns["Rol"].Width = 120;
+                gvUsers.Columns["Rol"].Width = 130;
+            }
+            
+            if (gvUsers.Columns["KayitTarihi"] != null)
+            {
+                gvUsers.Columns["KayitTarihi"].VisibleIndex = visibleIndex++;
+                gvUsers.Columns["KayitTarihi"].Caption = "Kayıt Tarihi";
+                gvUsers.Columns["KayitTarihi"].Width = 200;
             }
         }
 
@@ -347,33 +361,6 @@ namespace ApartmentManagement.WinFormUI
                     int id = idProp != null ? (int)idProp.GetValue(row) : 0;
 
                     e.DisplayText = $"{name}\n# ID: {id}";
-                    e.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
-                }
-            }
-
-            // Email kolonu için uyarı ikonu
-            if (e.Column?.FieldName == "Email")
-            {
-                var row = gvUsers.GetRow(e.RowHandle);
-                if (row != null)
-                {
-                    var emailProp = row.GetType().GetProperty("Email");
-                    string email = emailProp?.GetValue(row)?.ToString() ?? "";
-                    e.DisplayText = email;
-                }
-            }
-
-            // Kayıt Tarihi kolonu için relative time
-            if (e.Column?.FieldName == "KayitTarihi")
-            {
-                var row = gvUsers.GetRow(e.RowHandle);
-                if (row != null)
-                {
-                    var dateProp = row.GetType().GetProperty("KayitTarihi");
-                    var relativeProp = row.GetType().GetProperty("KayitTarihiRelative");
-                    string date = dateProp?.GetValue(row)?.ToString() ?? "";
-                    string relative = relativeProp?.GetValue(row)?.ToString() ?? "";
-                    e.DisplayText = $"{date}\n{relative}";
                     e.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
                 }
             }
