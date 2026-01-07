@@ -329,7 +329,21 @@ namespace ApartmentManagement.WinFormUI
                 buttonY += buttonHeight + spacing;
             }
 
-            // Separator before settings
+            // Raporlar - Sadece Admin ve SuperAdmin
+            if (role == "SuperAdmin" || role == "Admin")
+            {
+                AddMenuButton("📈 Raporlar", "📈", buttonY, () => ShowContent(new FrmReports(_currentUser)));
+                buttonY += buttonHeight + spacing;
+            }
+
+            // Sistem Logları - Sadece SuperAdmin
+            if (role == "SuperAdmin")
+            {
+                AddMenuButton("🧾 Sistem Logları", "🧾", buttonY, () => ShowContent(new FrmSystemLogs(_currentUser)));
+                buttonY += buttonHeight + spacing;
+            }
+
+            // Separator before settings & payment
             buttonY += 15;
             var separator2 = CreateSeparator(buttonY);
             this.pnlSidebar.Controls.Add(separator2);
