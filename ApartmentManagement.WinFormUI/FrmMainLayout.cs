@@ -255,8 +255,8 @@ namespace ApartmentManagement.WinFormUI
                 buttonY = 15; // Kapalıyken daha az boşluk
             }
 
-            // Menu Items based on role
-            string role = _currentUser?.Role ?? "Resident";
+            // Menu Items based on role (normalize DB values like 'Apartment manager' -> 'ApartmentManager')
+            string role = NormalizeRole(_currentUser?.Role);
 
             // Dashboard - Everyone
             AddMenuButton("🏠 Ana Sayfa", "🏠", buttonY, () => ShowDashboard(), true);
@@ -446,7 +446,7 @@ namespace ApartmentManagement.WinFormUI
             this.pnlContent.Controls.Clear();
 
             // Rol bazlı dashboard gösterimi
-            string role = _currentUser?.Role ?? "Resident";
+            string role = NormalizeRole(_currentUser?.Role);
             if (role == "Resident")
             {
                 // Resident için özel dashboard
@@ -935,6 +935,28 @@ namespace ApartmentManagement.WinFormUI
                 "ApartmentManager" => "🏠 Apartman Yöneticisi",
                 "Resident" => "🏡 Sakin",
                 _ => "👤 Kullanıcı"
+            };
+        }
+
+        /// <summary>
+        /// Veritabanında eski formatta kaydedilmiş roller için normalize edici helper.
+        /// Örn: 'Apartment manager' -> 'ApartmentManager'
+        /// </summary>
+        private string NormalizeRole(string role)
+        {
+            if (string.IsNullOrWhiteSpace(role))
+                return "Resident";
+
+            role = role.Trim();
+
+            return role switch
+            {
+                "Apartment manager" => "ApartmentManager",
+                "Site manager" => "SiteManager",
+                "superadmin" => "SuperAdmin",
+                "admin" => "Admin",
+                "resident" => "Resident",
+                _ => role // Zaten doğru formatta ise aynen bırak
             };
         }
 

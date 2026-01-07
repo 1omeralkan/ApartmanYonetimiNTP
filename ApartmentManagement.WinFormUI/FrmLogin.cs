@@ -3,6 +3,7 @@
 // Giriş Formu - Kullanıcı kimlik doğrulama işlemlerini yönetir
 // Standart: Tahoma 8.25pt, AutoScroll = true
 using ApartmentManagement.Business.Services;
+using ApartmentManagement.Business.Helpers;
 using ApartmentManagement.Business.Interfaces;
 using ApartmentManagement.WinFormUI.Helpers;
 using DevExpress.XtraEditors;
@@ -225,6 +226,7 @@ namespace ApartmentManagement.WinFormUI
 
             if (user != null)
             {
+                Logger.Log("INFO", "LOGIN_SUCCESS", $"Giriş yapıldı: {email}", user.Id);
                 this.Hide();
                 // Tüm roller için yeni layout'a yönlendir
                 new FrmMainLayout(user).Show();
@@ -239,15 +241,18 @@ namespace ApartmentManagement.WinFormUI
                     if (existingUser != null && !existingUser.IsApproved)
                     {
                         Swal.Warning("Hesabınız henüz admin tarafından onaylanmadı. Lütfen onay bekleyin.", "Onay Bekleniyor");
+                        Logger.Log("WARNING", "LOGIN_PENDING_APPROVAL", $"Onay bekleyen hesapla giriş denemesi: {email}", existingUser.Id);
                     }
                     else
                     {
                         Swal.Error("E-posta veya şifre hatalı!", "Giriş Hatası");
+                        Logger.Log("WARNING", "LOGIN_FAILED", $"Başarısız giriş denemesi: {email}");
                     }
                 }
                 catch
                 {
                     Swal.Error("E-posta veya şifre hatalı!", "Giriş Hatası");
+                    Logger.Log("ERROR", "LOGIN_FAILED", $"Başarısız giriş denemesi (exception): {email}");
                 }
             }
         }

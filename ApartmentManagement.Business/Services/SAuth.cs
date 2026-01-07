@@ -42,18 +42,15 @@ namespace ApartmentManagement.Business.Services
 
                 if (PasswordHelper.VerifyPassword(password, user.PasswordHash))
                 {
-                    // Update last login date
+                    // Update last login date (real value)
                     try
                     {
-                        user.LastLoginDate = DateTime.Now;
-                        _context.Entry(user).Property(x => x.LastLoginDate).IsModified = true;
+                        user.LastLoginDate = DateTime.UtcNow;
                         _context.SaveChanges();
                     }
-                    catch (Exception ex)
+                    catch
                     {
-                        // If save fails, still return user (login is successful)
-                        // LastLoginDate update is not critical for login
-                        // Log error if needed: System.Diagnostics.Debug.WriteLine($"LastLoginDate update failed: {ex.Message}");
+                        // Tarih güncellenemese de login devam etsin
                     }
                     return user;
                 }
@@ -138,9 +135,10 @@ namespace ApartmentManagement.Business.Services
         {
             try
             {
-                if (!_context.Users.Any())
+                // Eğer henüz Süper Admin yoksa varsayılan Süper Admin oluştur
+                if (!_context.Users.Any(u => u.Role == "SuperAdmin"))
                 {
-                    var admin = new User
+                    var superAdmin = new User
                     {
                         FirstName = "Süper",
                         LastName = "Admin",
@@ -149,13 +147,81 @@ namespace ApartmentManagement.Business.Services
                         Role = "SuperAdmin",
                         Phone = "5555555555",
                         TcNo = "11111111111",
-                        IsApproved = true, // Admin is auto-approved
+                        IsApproved = true,
                         CreatedDate = DateTime.UtcNow
                     };
-
-                    _context.Users.Add(admin);
-                    _context.SaveChanges();
+                    _context.Users.Add(superAdmin);
                 }
+
+                // Admin
+                if (!_context.Users.Any(u => u.Email == "admin1@gmail.com"))
+                {
+                    _context.Users.Add(new User
+                    {
+                        FirstName = "Ali",
+                        LastName = "Admin",
+                        Email = "admin1@gmail.com",
+                        PasswordHash = PasswordHelper.HashPassword("123"),
+                        Role = "Admin",
+                        Phone = "5550000001",
+                        TcNo = "22222222222",
+                        IsApproved = true,
+                        CreatedDate = DateTime.UtcNow
+                    });
+                }
+
+                // Site Manager
+                if (!_context.Users.Any(u => u.Email == "sitemanager@gmail.com"))
+                {
+                    _context.Users.Add(new User
+                    {
+                        FirstName = "Seda",
+                        LastName = "SiteYön",
+                        Email = "sitemanager@gmail.com",
+                        PasswordHash = PasswordHelper.HashPassword("123"),
+                        Role = "SiteManager",
+                        Phone = "5550000002",
+                        TcNo = "33333333333",
+                        IsApproved = true,
+                        CreatedDate = DateTime.UtcNow
+                    });
+                }
+
+                // Apartment Manager
+                if (!_context.Users.Any(u => u.Email == "apartmentmanager@gmail.com"))
+                {
+                    _context.Users.Add(new User
+                    {
+                        FirstName = "Ahmet",
+                        LastName = "ApartmanYön",
+                        Email = "apartmentmanager@gmail.com",
+                        PasswordHash = PasswordHelper.HashPassword("123"),
+                        Role = "ApartmentManager",
+                        Phone = "5550000003",
+                        TcNo = "44444444444",
+                        IsApproved = true,
+                        CreatedDate = DateTime.UtcNow
+                    });
+                }
+
+                // Resident
+                if (!_context.Users.Any(u => u.Email == "resident@gmail.com"))
+                {
+                    _context.Users.Add(new User
+                    {
+                        FirstName = "Emir",
+                        LastName = "Sakin",
+                        Email = "resident@gmail.com",
+                        PasswordHash = PasswordHelper.HashPassword("123"),
+                        Role = "Resident",
+                        Phone = "5550000004",
+                        TcNo = "55555555555",
+                        IsApproved = true,
+                        CreatedDate = DateTime.UtcNow
+                    });
+                }
+
+                _context.SaveChanges();
                 return string.Empty;
             }
             catch (Exception ex)

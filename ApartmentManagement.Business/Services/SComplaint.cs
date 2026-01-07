@@ -142,6 +142,14 @@ namespace ApartmentManagement.Business.Services
                 {
                     complaint.Status = "Beklemede";
                 }
+
+                // Null string alanları boş stringe çek (DB tarafında NOT NULL olsa bile sorun olmasın)
+                complaint.Title = complaint.Title ?? string.Empty;
+                complaint.Description = complaint.Description ?? string.Empty;
+                complaint.Type = complaint.Type ?? string.Empty;
+                complaint.FilePath = complaint.FilePath ?? string.Empty;
+                complaint.ManagerComment = complaint.ManagerComment ?? string.Empty;
+
                 complaint.CreatedDate = DateTime.UtcNow;
                 
                 // Navigation property'leri null yap (sadece ID'leri kullan)
@@ -150,6 +158,9 @@ namespace ApartmentManagement.Business.Services
                 
                 _context.Complaints.Add(complaint);
                 _context.SaveChanges();
+
+                // Log
+                Business.Helpers.Logger.Log("INFO", "COMPLAINT_CREATE", $"Şikayet/Talep oluşturuldu: {complaint.Title}", complaint.CreatedByUserId);
                 return string.Empty;
             }
             catch (Exception ex)
@@ -164,6 +175,8 @@ namespace ApartmentManagement.Business.Services
                         errorMessage += " | Inner2: " + ex.InnerException.InnerException.Message;
                     }
                 }
+
+                Business.Helpers.Logger.Log("ERROR", "COMPLAINT_CREATE_FAIL", errorMessage, complaint?.CreatedByUserId);
                 return errorMessage;
             }
         }
@@ -221,12 +234,16 @@ namespace ApartmentManagement.Business.Services
                     }
                     _context.Complaints.Update(complaint);
                     _context.SaveChanges();
+
+                    // Log
+                    Business.Helpers.Logger.Log("INFO", "COMPLAINT_STATUS", $"Şikayet/Talep durumu '{status}' olarak güncellendi. Id: {complaint.Id}", complaint.AssignedToUserId ?? complaint.CreatedByUserId);
                     return string.Empty;
                 }
                 return "Şikayet/Talep bulunamadı.";
             }
             catch (Exception ex)
             {
+                Business.Helpers.Logger.Log("ERROR", "COMPLAINT_STATUS_FAIL", ex.Message, null);
                 return ex.Message;
             }
         }

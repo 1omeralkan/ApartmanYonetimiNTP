@@ -16,5 +16,12 @@ namespace ApartmentManagement.DataAccess.Entities
         public bool IsOwner { get; set; } // true: Ev Sahibi, false: Kiracı
         public DateTime StartDate { get; set; } = DateTime.Now;
         public DateTime? EndDate { get; set; }
+
+        // Ek bilgiler
+        public decimal? Rent { get; set; } // Kira (TL)
+        [MaxLength(20)]
+        public string Status { get; set; } // Aktif/Pasif
+        [MaxLength(500)]
+        public string Note { get; set; }
     }
 }

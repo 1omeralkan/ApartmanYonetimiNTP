@@ -373,18 +373,20 @@ namespace ApartmentManagement.WinFormUI
             // Başlık
             var lblTitle = new LabelControl();
             lblTitle.Text = title;
-            lblTitle.Appearance.Font = new Font("Tahoma", 9F);
-            lblTitle.Appearance.ForeColor = Color.FromArgb(100, 100, 100);
-            lblTitle.Location = new Point(15, height - 35);
+            lblTitle.Appearance.Font = new Font("Tahoma", 10F, FontStyle.Bold);
+            lblTitle.Appearance.ForeColor = Color.FromArgb(55, 65, 81);
+            lblTitle.Location = new Point(70, 20);
             panel.Controls.Add(lblTitle);
 
-            // Değer
+            // Değer (büyük sayı, sağ üstte)
             countLabel = new LabelControl();
             countLabel.Text = defaultValue;
-            countLabel.Appearance.Font = new Font("Tahoma", 18F, FontStyle.Bold);
+            countLabel.Appearance.Font = new Font("Tahoma", 20F, FontStyle.Bold);
             countLabel.Appearance.ForeColor = Color.FromArgb(30, 30, 46);
-            countLabel.Location = new Point(15, height - 55);
-            countLabel.Size = new Size(width - 30, 25);
+            countLabel.AutoSizeMode = LabelAutoSizeMode.None;
+            countLabel.Size = new Size(width - 90, 40);
+            countLabel.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            countLabel.Location = new Point(70, 45);
             panel.Controls.Add(countLabel);
 
             return panel;
@@ -517,7 +519,7 @@ namespace ApartmentManagement.WinFormUI
                     complaintList = complaintList.Where(c => c.Status == statusFilter).ToList();
                 }
 
-                // Display data
+                // Display data (filtrelenmiş liste)
                 var displayData = complaintList.Select(c => new
                 {
                     c.Id,
@@ -539,8 +541,8 @@ namespace ApartmentManagement.WinFormUI
                 // Sütun ayarları
                 ConfigureColumns();
 
-                // İstatistikleri güncelle
-                UpdateStatistics(complaintList);
+                // İstatistikleri güncelle (rol bazlı tüm kayıtlar üzerinden)
+                UpdateStatistics();
             }
             catch (Exception ex)
             {
@@ -612,19 +614,64 @@ namespace ApartmentManagement.WinFormUI
         }
 
         /// <summary>
-        /// İstatistikleri günceller
+        /// İstatistikleri günceller (rol bazlı tüm kayıtlar üzerinden)
         /// </summary>
-        private void UpdateStatistics(List<Complaint> complaintList)
+        private void UpdateStatistics()
         {
-            int total = complaintList.Count;
-            int pending = complaintList.Count(c => c.Status == "Beklemede");
-            int inProgress = complaintList.Count(c => c.Status == "İnceleniyor");
-            int resolved = complaintList.Count(c => c.Status == "Çözüldü");
+            try
+            {
+                List<Complaint> allComplaints;
 
-            lblTotalCount.Text = total.ToString();
-            lblPendingCount.Text = pending.ToString();
-            lblInProgressCount.Text = inProgress.ToString();
-            lblResolvedCount.Text = resolved.ToString();
+                // Rol bazlı aynı mantık: ancak filtreler uygulanmadan
+                if (_currentUser?.Role == "Resident")
+                {
+                    allComplaints = _complaintService.GetByUserId(_currentUser.Id);
+                }
+                else if (_currentUser?.Role == "ApartmentManager")
+                {
+                    var userFlat = _flatService.GetResidentFlat(_currentUser.Id);
+                    if (userFlat != null)
+                    {
+                        allComplaints = _complaintService.GetByApartmentId(userFlat.ApartmentId);
+                    }
+                    else
+                    {
+                        allComplaints = new List<Complaint>();
+                    }
+                }
+                else if (_currentUser?.Role == "SiteManager")
+                {
+                    // SiteManager için: seçili site varsa o site, yoksa tüm siteler
+                    var selectedSite = cmbSiteFilter?.SelectedItem as FilterItem;
+                    if (selectedSite?.Id.HasValue == true)
+                    {
+                        allComplaints = _complaintService.GetBySiteId(selectedSite.Id.Value);
+                    }
+                    else
+                    {
+                        allComplaints = _complaintService.GetAll();
+                    }
+                }
+                else
+                {
+                    // Admin / SuperAdmin
+                    allComplaints = _complaintService.GetAll();
+                }
+
+                int total = allComplaints.Count;
+                int pending = allComplaints.Count(c => c.Status == "Beklemede");
+                int inProgress = allComplaints.Count(c => c.Status == "İnceleniyor");
+                int resolved = allComplaints.Count(c => c.Status == "Çözüldü");
+
+                lblTotalCount.Text = total.ToString();
+                lblPendingCount.Text = pending.ToString();
+                lblInProgressCount.Text = inProgress.ToString();
+                lblResolvedCount.Text = resolved.ToString();
+            }
+            catch
+            {
+                // Sessiz geç; ekranı bozmasın
+            }
         }
 
         /// <summary>

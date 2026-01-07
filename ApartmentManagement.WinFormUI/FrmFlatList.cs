@@ -653,8 +653,11 @@ namespace ApartmentManagement.WinFormUI
         
         private void AssignResident(int flatId)
         {
-            // TODO: Implement assign resident form
-            Swal.Info($"Sakin atama formu açılacak (Daire ID: {flatId})");
+            var frm = new FrmAssignResident(flatId);
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+                LoadData();
+            }
         }
 
         private void BtnFilter_Click(object sender, EventArgs e)

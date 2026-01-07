@@ -81,7 +81,17 @@ namespace ApartmentManagement.Business.Services
             }
             catch (Exception ex)
             {
-                return ex.Message;
+                // Inner exception detayını da göster
+                string msg = ex.Message;
+                if (ex.InnerException != null)
+                {
+                    msg += " | Inner: " + ex.InnerException.Message;
+                    if (ex.InnerException.InnerException != null)
+                    {
+                        msg += " | Inner2: " + ex.InnerException.InnerException.Message;
+                    }
+                }
+                return msg;
             }
         }
 
